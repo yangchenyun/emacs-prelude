@@ -167,9 +167,7 @@
 
 (fill-keymaps (list evil-operator-state-map
                     evil-visual-state-map)
-             ;; works like `f'
              "SPC"   'evil-ace-jump-char-mode
-             ;; works like `t'
              "C-SPC" 'evil-ace-jump-word-mode)
 
 (defun cofi/clear-empty-lines ()
