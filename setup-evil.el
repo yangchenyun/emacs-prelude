@@ -21,7 +21,10 @@
 (setq evil-default-cursor #'cofi/evil-cursor)
 (setq evil-mode-line-format nil)
 (setq evil-leader/leader ","
-      evil-leader/in-all-states t)
+      ;; C-<leader> to access from all buffers
+      evil-leader/in-all-states t
+      ;; enable <leader> anyway
+      evil-leader/no-prefix-mode-rx '("magit-.*-mode" "gnus-.*-mode"))
 (setq evil-search-module 'evil-search)
 
 (global-evil-leader-mode)
@@ -183,9 +186,11 @@
   "k" 'kill-current-buffer
   "K" 'kill-buffer-and-window
   "f" 'dired-jump
-
+  "b" 'ibuffer
   "m" 'compile
-
+  "/" 'evil-ex-nohighlight
+  "a" 'org-agenda
+  "r" 'prelude-recentf-ido-find-file
   "s" 'cofi/split-shell
   "S" 'eshell
 
