@@ -1,4 +1,5 @@
-(prelude-require-package 'multiple-cursors)
+(prelude-require-package 'ido-vertical-mode)
+(ido-vertical-mode 1)
 
 ; no scroll bars
 (menu-bar-mode -1)
