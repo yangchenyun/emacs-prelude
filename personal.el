@@ -25,15 +25,40 @@
 (setq ns-function-modifier 'hyper)
 
 ;; mac friendly font
+(setq ns-use-srgb-colorspace t)
+
+
 (when window-system
   (setq
-  default-font "-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1")
-  (set-face-attribute 'default nil :font default-font))
+   menlo-font "-apple-Menlo-regular-normal-normal-*-12-*-*-*-m-0-iso10646-1")
+  (setq
+   monaco-font "-apple-Monaco-normal-normal-*-12-*-*-*-m-0-iso10646-1")
+  (set-face-attribute 'default nil :font menlo-font)
+  (set-face-attribute 'fixed-pitch nil :font menlo-font)
+  (set-face-attribute 'variable-pitch nil :font menlo-font))
 
 (if window-system
   (load-theme 'solarized-dark t)
   (load-theme 'solarized-light t))
 
-
 (require 'setup-evil)
+(setq themes-options (list
+       'solarized-dark
+       'solarized-light
+       'zenburn
+))
+;; make the modeline high contrast
+(setq solarized-high-contrast-mode-line t)
+
+(setq theme-current themes-options)
+(defun theme-cycle ()
+  (interactive)
+  (setq theme-current (cdr theme-current))
+  (if (null theme-current)
+      (setq theme-current themes-options))
+  (load-theme (car theme-current))
+  (message "%S" (car theme-current)))
+
+(global-set-key [f4] 'theme-cycle)
+
 (require 'setup-cider)
