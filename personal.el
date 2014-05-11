@@ -1,5 +1,12 @@
 (prelude-require-package 'ido-vertical-mode)
 (ido-vertical-mode 1)
+;;
+;; follow Steve Yegge's suggestion
+(global-set-key (kbd "C-c C-m") 'smex)
+(global-set-key (kbd "C-c <RET>") 'smex)
+
+;; eval like Light Table
+(global-set-key (kbd "M-<RET>") 'eval-last-sexp)
 
 ; no scroll bars
 (menu-bar-mode -1)
@@ -62,4 +69,5 @@
 
 (global-set-key [f4] 'theme-cycle)
 
+(require 'setup-evil)
 (require 'setup-cider)
