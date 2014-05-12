@@ -24,16 +24,16 @@
 
 ;; normal state shortcuts
 (evil-define-key 'normal evil-org-mode-map
-  "gh" 'outline-up-heading
+  "gu" 'outline-up-heading
   "gj" 'org-forward-heading-same-level
   "gk" 'org-backward-heading-same-level
+  "gh" 'outline-previous-visible-heading
   "gl" 'outline-next-visible-heading
-  "t" 'org-todo
-  "T" '(lambda () (interactive) (evil-org-eol-call '(org-insert-todo-heading nil)))
   "H" 'org-shiftleft
   "L" 'org-shiftright
-  "C-S-h" 'org-shiftcontrolleft
-  "C-S-l" 'org-shiftcontrolright
+  "*" 'org-toggle-heading
+  "t" 'org-todo
+  "T" 'org-set-tags-command
   ";t" 'org-show-todo-tree
   "O" '(lambda () (interactive) (evil-org-eol-call 'org-insert-heading))
   "$" 'org-end-of-line
@@ -68,6 +68,7 @@
       '(normal insert))
 
 (evil-leader/set-key-for-mode 'org-mode
+  "^" 'org-sort
   ;; clock related keymaps
   "ci" 'org-clock-in
   "cl" 'org-clock-in-last
@@ -85,6 +86,7 @@
           ("STARTED" . "yellow")
           ("CANCELED" . (:foreground "blue" :weight bold))))
   (setq org-enforce-todo-dependencies t)
+  (setq org-M-RET-may-split-line nil)
   (add-to-list 'org-modules "org-habit")
   (org-agenda-files "~/.org")
   (org-indent-mode t)
