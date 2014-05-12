@@ -24,7 +24,12 @@
       ;; C-<leader> to access from all buffers
       evil-leader/in-all-states t
       ;; enable <leader> anyway
-      evil-leader/no-prefix-mode-rx '("ibuffer-mode" "magit-.*-mode" "gnus-.*-mode"))
+      evil-leader/no-prefix-mode-rx (list
+                                     "occur-mode"
+                                     "ibuffer-mode"
+                                     "magit-.*-mode"
+))
+
 (setq evil-search-module 'evil-search)
 
 (global-evil-leader-mode)
@@ -175,6 +180,7 @@
 (evil-add-hjkl-bindings magit-log-mode-map 'emacs)
 (evil-add-hjkl-bindings magit-commit-mode-map 'emacs)
 (evil-add-hjkl-bindings magit-process-mode-map 'emacs)
+(evil-add-hjkl-bindings git-rebase-mode-map 'emacs)
 (evil-add-hjkl-bindings ibuffer-mode-map 'emacs)
 (evil-add-hjkl-bindings occur-mode 'emacs)
 
