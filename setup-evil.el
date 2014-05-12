@@ -123,6 +123,7 @@
                                  (term-mode                    . emacs)
                                  (bc-menu-mode                 . emacs)
                                  (magit-branch-manager-mode    . emacs)
+                                 (makey-key-mode               . emacs)
                                  (semantic-symref-results-mode . emacs)
                                  (rdictcc-buffer-mode          . emacs)
                                  (erc-mode                     . normal))

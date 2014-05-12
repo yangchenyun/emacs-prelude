@@ -7,6 +7,8 @@
 (require 'persp-projectile)
 (persp-mode)
 
+(global-discover-mode 1)
+
 ;; follow Steve Yegge's suggestion
 (global-set-key (kbd "C-c C-m") 'smex)
 (global-set-key (kbd "C-c <RET>") 'smex)
