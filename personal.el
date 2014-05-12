@@ -70,5 +70,6 @@
 (global-set-key [f4] 'theme-cycle)
 
 (require 'setup-evil)
+(require 'setup-window)
 (require 'setup-org)
 (require 'setup-cider)
