@@ -50,8 +50,8 @@
 
     ;; winner-mode
     "u" 'winner-undo
-    "C-r" 'winner-redo
     ;; shadow rotating in evil-window-map
+    "r" 'winner-redo
     "C-R" 'winner-redo)
 
 (provide 'setup-window)
