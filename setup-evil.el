@@ -138,6 +138,7 @@
              "L"     'end-of-line
              "C-u"   'evil-scroll-up
              "C-;"   'eval-expression
+             "M-p"   'helm-projectile
              )
 
 (fill-keymap evil-motion-state-map
@@ -155,6 +156,7 @@
              "C-h" 'backward-delete-char
              "C-k" 'kill-line
              "C-y" 'yank
+             "M-p" 'helm-projectile
              "C-e" 'end-of-line)
 
 (fill-keymaps (list evil-operator-state-map
@@ -174,7 +176,8 @@
   "W" 'save-some-buffers
   "k" 'kill-current-buffer
   "K" 'kill-buffer-and-window
-  "f" 'dired-jump
+  "f" 'ido-find-file
+  "d" 'dired-jump
   "b" 'ibuffer
   "m" 'compile
   "/" 'evil-ex-nohighlight
@@ -182,7 +185,7 @@
   "r" 'prelude-recentf-ido-find-file
   "s" 'cofi/split-shell
   "S" 'eshell
-    "C-R" 'winner-redo)
+  "." 'smex)
 
 (provide 'setup-evil)
 ;;; setup-evil.el ends here
