@@ -18,7 +18,7 @@
 (setq evil-find-skip-newlines t)
 (setq evil-move-cursor-back nil
       evil-cross-lines t)
-(setq evil-default-cursor #'cofi/evil-cursor)
+(setq evil-default-cursor t)
 (setq evil-mode-line-format nil)
 (setq evil-leader/leader ","
       ;; C-<leader> to access from all buffers
@@ -88,17 +88,6 @@
 
 (evil-set-toggle-key "<pause>")
 (evil-mode 1)
-
-(defun cofi/evil-cursor ()
-  "Change cursor color according to evil-state."
-  (let ((default "OliveDrab4")
-        (cursor-colors '((insert . "dark orange")
-                         (emacs  . "sienna")
-                         (visual . "white"))))
-    (setq cursor-type (if (eq evil-state 'visual)
-                          'hollow
-                        'bar))
-    (set-cursor-color (def-assoc evil-state cursor-colors default))))
 
 (evil-define-command cofi/evil-maybe-exit ()
   :repeat change
