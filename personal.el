@@ -90,3 +90,4 @@
 (require 'setup-window)
 (require 'setup-org)
 (require 'setup-cider)
+(require 'setup-magit)
