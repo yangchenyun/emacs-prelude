@@ -45,16 +45,25 @@
   (set-face-attribute 'fixed-pitch nil :font menlo-font)
   (set-face-attribute 'variable-pitch nil :font menlo-font))
 
-(if window-system
-  (load-theme 'solarized-dark t)
-  (load-theme 'solarized-light t))
+(defun pick-color-theme (frame)
+  (if (window-system frame)
+      (load-theme 'solarized-dark t)
+    (load-theme 'solarized-light t)))
 
-(require 'setup-evil)
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (select-frame frame)
+            (pick-color-theme frame)))
+
+;; for direct loading
+(pick-color-theme nil)
+
 (setq themes-options (list
        'solarized-dark
        'solarized-light
        'zenburn
 ))
+
 ;; make the modeline high contrast
 (setq solarized-high-contrast-mode-line t)
 
