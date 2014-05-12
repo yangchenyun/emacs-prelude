@@ -1,6 +1,7 @@
 (prelude-require-package 'ido-vertical-mode)
 (ido-vertical-mode 1)
-;;
+
+(setq projectile-switch-project-action 'projectile-dired)
 ;; follow Steve Yegge's suggestion
 (global-set-key (kbd "C-c C-m") 'smex)
 (global-set-key (kbd "C-c <RET>") 'smex)
