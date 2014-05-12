@@ -2,6 +2,11 @@
 (ido-vertical-mode 1)
 
 (setq projectile-switch-project-action 'projectile-dired)
+(prelude-require-package 'perspective)
+(prelude-require-package 'persp-projectile)
+(require 'persp-projectile)
+(persp-mode)
+
 ;; follow Steve Yegge's suggestion
 (global-set-key (kbd "C-c C-m") 'smex)
 (global-set-key (kbd "C-c <RET>") 'smex)
