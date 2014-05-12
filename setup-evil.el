@@ -24,7 +24,7 @@
       ;; C-<leader> to access from all buffers
       evil-leader/in-all-states t
       ;; enable <leader> anyway
-      evil-leader/no-prefix-mode-rx '("magit-.*-mode" "gnus-.*-mode"))
+      evil-leader/no-prefix-mode-rx '("ibuffer-mode" "magit-.*-mode" "gnus-.*-mode"))
 (setq evil-search-module 'evil-search)
 
 (global-evil-leader-mode)
@@ -163,6 +163,20 @@
                     evil-visual-state-map)
              "SPC"   'evil-ace-jump-char-mode
              "C-SPC" 'evil-ace-jump-word-mode)
+
+;; Make HJKL keys work in special buffers
+(evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
+  "K" 'magit-discard-item
+  "L" 'magit-key-mode-popup-logging)
+(evil-add-hjkl-bindings magit-status-mode-map 'emacs
+  "K" 'magit-discard-item
+  "l" 'magit-key-mode-popup-logging
+  "h" 'magit-toggle-diff-refine-hunk)
+(evil-add-hjkl-bindings magit-log-mode-map 'emacs)
+(evil-add-hjkl-bindings magit-commit-mode-map 'emacs)
+(evil-add-hjkl-bindings magit-process-mode-map 'emacs)
+(evil-add-hjkl-bindings ibuffer-mode-map 'emacs)
+(evil-add-hjkl-bindings occur-mode 'emacs)
 
 (defun cofi/clear-empty-lines ()
   (let ((line (buffer-substring (point-at-bol) (point-at-eol))))
