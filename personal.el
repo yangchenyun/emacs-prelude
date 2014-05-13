@@ -9,6 +9,11 @@
 
 (global-discover-mode 1)
 
+(prelude-require-package 'keyfreq)
+(keyfreq-mode 1)
+(keyfreq-autosave-mode 1)
+(setq keyfreq-file (expand-file-name "keyfreq" prelude-savefile-dir)
+(setq keyfreq-file-lock (expand-file-name "keyfreq-lock" prelude-savefile-dir)
 ;; follow Steve Yegge's suggestion
 (global-set-key (kbd "C-c C-m") 'smex)
 (global-set-key (kbd "C-c <RET>") 'smex)
