@@ -7,6 +7,7 @@
 (require 'persp-projectile)
 (persp-mode)
 
+(prelude-require-package 'discover)
 (global-discover-mode 1)
 
 (prelude-require-package 'keyfreq)
