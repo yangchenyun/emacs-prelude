@@ -1,3 +1,8 @@
+(prelude-require-package 'org-mac-link)
+(require 'org-protocol)
+;; Register a org-protocol:// scheme onto the system
+;; http://jcardente.blogspot.com/2010/09/saving-weblinks-to-org-mode-from-safari.html
+
 ;; adapted from evil-org-mode with customized settings for evil keymaps
 (define-minor-mode evil-org-mode
   "Buffer local minor mode for evil-org"

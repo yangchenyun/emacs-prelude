@@ -142,3 +142,8 @@ The `car' of each item is the font family, the `cdr' the preferred font size.")
 (require 'setup-org)
 (require 'setup-cider)
 (require 'setup-magit)
+
+;; start emacs server so that you can use emacsclient to open new files
+;; quickly in your one emacs session (which you start after a reboot and
+;; keep open until your next reboot)
+(server-start)
