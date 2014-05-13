@@ -33,6 +33,14 @@
 (setq evil-search-module 'evil-search)
 
 (global-evil-leader-mode)
+
+(defun evilnc-default-hotkeys ()
+  "Set the hotkeys of evil-nerd-comment"
+  (interactive)
+  (global-set-key (kbd "M-/") 'evilnc-comment-or-uncomment-lines)
+  (global-set-key (kbd "C-c l") 'evilnc-comment-or-uncomment-to-the-line)
+  (global-set-key (kbd "C-c p") 'evilnc-comment-or-uncomment-paragraphs)
+)
 (evilnc-default-hotkeys)
 
 ;; FIXME a little overlap with powerline evil configuration
@@ -215,7 +223,18 @@
   "r" 'prelude-recentf-ido-find-file
   "s" 'cofi/split-shell
   "S" 'eshell
-  "." 'smex)
+  "." 'smex
+
+  "a" 'org-agenda
+  "c" 'org-capture
+
+  ;; nerd commenter
+  "ci" 'evilnc-comment-or-uncomment-lines
+  "cl" 'evilnc-comment-or-uncomment-to-the-line
+  "cc" 'evilnc-copy-and-comment-lines
+  "cp" 'evilnc-comment-or-uncomment-paragraphs
+  "cr" 'comment-or-uncomment-region
+)
 
 (provide 'setup-evil)
 ;;; setup-evil.el ends here
