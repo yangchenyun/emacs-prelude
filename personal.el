@@ -48,15 +48,54 @@
 ;; mac friendly font
 (setq ns-use-srgb-colorspace t)
 
+(defconst preferred-monospace-fonts
+  `(
+    ("Source Code Pro" . ,(if (eq system-type 'darwin) 130 100))
+    ("Anonymous Pro" . ,(if (eq system-type 'darwin) 135 110))
+    ("Anonymous Pro Minus" . ,(if (eq system-type 'darwin) 135 110))
+    ("DejaVu Sans Mono" . 120)
+    ("Inconsolata" . ,(if (eq system-type 'darwin) 140 110))
+    ("Menlo" . 120)
+    ("Consolas" . 130)
+    ("Courier New" . 130))
+  "Preferred monospace fonts
+The `car' of each item is the font family, the `cdr' the preferred font size.")
 
-(when window-system
-  (setq
-   menlo-font "-apple-Menlo-regular-normal-normal-*-12-*-*-*-m-0-iso10646-1")
-  (setq
-   monaco-font "-apple-Monaco-normal-normal-*-12-*-*-*-m-0-iso10646-1")
-  (set-face-attribute 'default nil :font menlo-font)
-  (set-face-attribute 'fixed-pitch nil :font menlo-font)
-  (set-face-attribute 'variable-pitch nil :font menlo-font))
+(defconst preferred-proportional-fonts
+  '(("Lucida Grande" . 120)
+    ("DejaVu Sans" . 110))
+  "Preferred proportional fonts
+The `car' of each item is the font family, the `cdr' the preferred font size.")
+
+(defun first-existing-font (fonts)
+  "Get the first existing font from FONTS."
+  (--first (x-family-fonts (car it)) fonts))
+
+(defun cycle-fonts ()
+  "Cycle through the monospace fonts"
+  (interactive)
+  (if (null current-monospace-font)
+      (setq current-monospace-font preferred-monospace-fonts)
+    (setq current-monospace-font (cdr current-monospace-font)))
+  (-when-let (font (first-existing-font current-monospace-font))
+    (--each '(default fixed-pitch)
+      (set-face-attribute it nil
+                          :family (car font) :height (cdr font))
+      (message "%S" font))))
+(global-set-key [f5] 'cycle-fonts)
+
+(defun choose-best-fonts ()
+  "Choose the best fonts."
+  (interactive)
+  (-when-let (font  (first-existing-font preferred-monospace-fonts))
+    (--each '(default fixed-pitch)
+      (set-face-attribute it nil
+                          :family (car font) :height (cdr font))))
+  (-when-let (font (first-existing-font preferred-proportional-fonts))
+    (set-face-attribute 'variable-pitch nil
+                        :family (car font) :height (cdr font))))
+
+(choose-best-fonts)
 
 (defun pick-color-theme (frame)
   (if (window-system frame)
@@ -81,12 +120,13 @@
 (setq solarized-high-contrast-mode-line t)
 
 (setq theme-current themes-options)
+
 (defun theme-cycle ()
   (interactive)
   (setq theme-current (cdr theme-current))
   (if (null theme-current)
       (setq theme-current themes-options))
-  (load-theme (car theme-current))
+  (load-theme (car theme-current) 'no-confirm)
   (message "%S" (car theme-current)))
 
 (global-set-key [f4] 'theme-cycle)
