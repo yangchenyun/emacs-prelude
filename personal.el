@@ -55,10 +55,10 @@
 
 (defconst preferred-monospace-fonts
   `(
+    ("DejaVu Sans Mono" . 120)
     ("Source Code Pro" . ,(if (eq system-type 'darwin) 130 100))
     ("Anonymous Pro" . ,(if (eq system-type 'darwin) 135 110))
     ("Anonymous Pro Minus" . ,(if (eq system-type 'darwin) 135 110))
-    ("DejaVu Sans Mono" . 120)
     ("Monaco For Powerline" . ,(if (eq system-type 'darwin) 130 110))
     ("Menlo" . 120)
     ("Consolas" . 130)
