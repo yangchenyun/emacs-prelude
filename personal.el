@@ -15,6 +15,10 @@
 (setq keyfreq-file-lock (expand-file-name "keyfreq-lock" prelude-savefile-dir))
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
+
+(require 'powerline)
+(powerline-evil-theme)
+
 ;; follow Steve Yegge's suggestion
 (global-set-key (kbd "C-c C-m") 'smex)
 (global-set-key (kbd "C-c <RET>") 'smex)
@@ -55,7 +59,7 @@
     ("Anonymous Pro" . ,(if (eq system-type 'darwin) 135 110))
     ("Anonymous Pro Minus" . ,(if (eq system-type 'darwin) 135 110))
     ("DejaVu Sans Mono" . 120)
-    ("Inconsolata" . ,(if (eq system-type 'darwin) 140 110))
+    ("Monaco For Powerline" . ,(if (eq system-type 'darwin) 130 110))
     ("Menlo" . 120)
     ("Consolas" . 130)
     ("Courier New" . 130))
@@ -119,7 +123,7 @@ The `car' of each item is the font family, the `cdr' the preferred font size.")
 ))
 
 ;; make the modeline high contrast
-(setq solarized-high-contrast-mode-line t)
+(setq solarized-high-contrast-mode-line nil)
 
 (setq theme-current themes-options)
 

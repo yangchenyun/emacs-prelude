@@ -35,12 +35,21 @@
 (global-evil-leader-mode)
 (evilnc-default-hotkeys)
 
-(setq evil-normal-state-tag   (propertize "N" 'face '((:background "green" :foreground "black")))
-      evil-emacs-state-tag    (propertize "E" 'face '((:background "orange" :foreground "black")))
-      evil-insert-state-tag   (propertize "I" 'face '((:background "red")))
-      evil-motion-state-tag   (propertize "M" 'face '((:background "blue")))
-      evil-visual-state-tag   (propertize "V" 'face '((:background "grey80" :foreground "black")))
-      evil-operator-state-tag (propertize "O" 'face '((:background "purple"))))
+;; FIXME a little overlap with powerline evil configuration
+(setq evil-normal-state-tag
+      (propertize " N " 'face '((:background "red" :foreground "black")))
+      evil-emacs-state-tag
+      (propertize " E " 'face '((:background "blue violet" :foreground "black")))
+      evil-insert-state-tag
+      (propertize " I " 'face '((:background "green")))
+      evil-motion-state-tag
+      (propertize "M" 'face '((:background "blue")))
+      evil-visual-state-tag
+      (propertize "V" 'face '((:background "orange" :foreground "black")))
+      evil-operator-state-tag
+      (propertize "O" 'face '((:background "sky blue"))))
+
+
 
 (require-and-exec 'surround
   (setq-default surround-pairs-alist '((?\( . ("(" . ")"))
