@@ -219,14 +219,13 @@
   "b" 'ibuffer
   "m" 'compile
   "/" 'evil-ex-nohighlight
-  "a" 'org-agenda
   "r" 'prelude-recentf-ido-find-file
   "s" 'cofi/split-shell
   "S" 'eshell
   "." 'smex
 
-  "a" 'org-agenda
-  "c" 'org-capture
+  "oa" 'org-agenda
+  "oc" 'org-capture
 
   ;; nerd commenter
   "ci" 'evilnc-comment-or-uncomment-lines
