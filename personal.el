@@ -16,6 +16,8 @@
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
 
+(setq find-function-C-source-directory "~/vendor/emacs/src")
+
 (require 'powerline)
 (powerline-evil-theme)
 
