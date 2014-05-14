@@ -38,7 +38,6 @@
   "Set the hotkeys of evil-nerd-comment"
   (interactive)
   (global-set-key (kbd "M-/") 'evilnc-comment-or-uncomment-lines)
-  (global-set-key (kbd "C-c l") 'evilnc-comment-or-uncomment-to-the-line)
   (global-set-key (kbd "C-c p") 'evilnc-comment-or-uncomment-paragraphs)
 )
 (evilnc-default-hotkeys)
