@@ -142,6 +142,7 @@
                                  (makey-key-mode               . emacs)
                                  (semantic-symref-results-mode . emacs)
                                  (rdictcc-buffer-mode          . emacs)
+                                 (ibuffer-mode                 . normal)
                                  (erc-mode                     . normal))
          do (evil-set-initial-state mode state))
 
@@ -198,7 +199,6 @@
 (evil-add-hjkl-bindings magit-commit-mode-map 'emacs)
 (evil-add-hjkl-bindings magit-process-mode-map 'emacs)
 (evil-add-hjkl-bindings git-rebase-mode-map 'emacs)
-(evil-add-hjkl-bindings ibuffer-mode-map 'emacs)
 (evil-add-hjkl-bindings occur-mode 'emacs)
 
 (defun cofi/clear-empty-lines ()
