@@ -137,7 +137,7 @@ SCHEDULED: %^t
          (file+headline (expand-file-name "inbox.org" org-directory) "Tasks")
          ,sacha/org-basic-task-template)
         ;; for insert tasks quickly
-        ("dt" "Done - Task" entry
+        ("d" "Done - Task" entry
          (file+headline (expand-file-name "inbox.org" org-directory) "Tasks")
          "* DONE %^{Task}\nSCHEDULED: %^t\n%?")
         ("i" "Ideas" entry

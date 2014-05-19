@@ -42,7 +42,7 @@
       evil-insert-state-tag
       (propertize " I " 'face '((:background "green")))
       evil-motion-state-tag
-      (propertize "M" 'face '((:background "blue")))
+      (propertize " M " 'face '((:background "blue")))
       evil-visual-state-tag
       (propertize "V" 'face '((:background "orange" :foreground "black")))
       evil-operator-state-tag
@@ -99,7 +99,6 @@
                   (yangchenyun/surround-add-pair "e" ":exc:`" "`"))
                 '(rst-mode-hook python-mode-hook)))
 
-(evil-set-toggle-key "<pause>")
 (evil-mode 1)
 
 (evil-define-command cofi/evil-maybe-exit ()
@@ -157,9 +156,9 @@
 
 (fill-keymaps (list evil-operator-state-map
                     evil-visual-state-map)
-             "SPC"   'evil-ace-jump-char-mode
+             "SPC"   'evil-scroll-down
+             "DEL"   'evil-scroll-up
              "C-SPC" 'evil-ace-jump-word-mode)
-
 
 (defun cofi/clear-empty-lines ()
   (let ((line (buffer-substring (point-at-bol) (point-at-eol))))
@@ -179,7 +178,7 @@
   "m" 'compile
   "/" 'evil-ex-nohighlight
   "r" 'prelude-recentf-ido-find-file
-  "s" 'cofi/split-shell
+  "s" 'helm-occur
   "S" 'eshell
   "." 'smex
 
