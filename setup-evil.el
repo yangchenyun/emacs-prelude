@@ -20,15 +20,7 @@
       evil-cross-lines t)
 (setq evil-default-cursor t)
 (setq evil-mode-line-format nil)
-(setq evil-leader/leader ","
-      ;; C-<leader> to access from all buffers
-      evil-leader/in-all-states t
-      ;; enable <leader> anyway
-      evil-leader/no-prefix-mode-rx (list
-                                     "occur-mode"
-                                     "ibuffer-mode"
-                                     "magit-.*-mode"
-))
+(setq evil-leader/leader ",")
 
 (setq evil-search-module 'evil-search)
 
@@ -126,31 +118,12 @@
           (push 'escape unread-command-events))
        (t (push evt unread-command-events))))))
 
-(cl-loop for (mode . state) in '((inferior-emacs-lisp-mode     . emacs)
-                                 (pylookup-mode                . emacs)
-                                 (comint-mode                  . emacs)
-                                 (ebib-entry-mode              . emacs)
-                                 (ebib-index-mode              . emacs)
-                                 (ebib-log-mode                . emacs)
-                                 (elfeed-show-mode             . emacs)
-                                 (elfeed-search-mode           . emacs)
-                                 (gtags-select-mode            . emacs)
-                                 (shell-mode                   . emacs)
-                                 (term-mode                    . emacs)
-                                 (bc-menu-mode                 . emacs)
-                                 (magit-branch-manager-mode    . emacs)
-                                 (makey-key-mode               . emacs)
-                                 (semantic-symref-results-mode . emacs)
-                                 (rdictcc-buffer-mode          . emacs)
-                                 (ibuffer-mode                 . normal)
-                                 (erc-mode                     . normal))
-         do (evil-set-initial-state mode state))
-
 (fill-keymap evil-normal-state-map
              "Y"     (kbd "y$")
              "+"     'evil-numbers/inc-at-pt
              "-"     'evil-numbers/dec-at-pt
-             "SPC"   'evil-ace-jump-char-mode
+             "SPC"   'evil-scroll-down
+             "DEL"   'evil-scroll-up
              "C-SPC" 'evil-ace-jump-word-mode
              "go"    'evil-ace-jump-line-mode
              "C-t"   'transpose-chars
@@ -187,19 +160,6 @@
              "SPC"   'evil-ace-jump-char-mode
              "C-SPC" 'evil-ace-jump-word-mode)
 
-;; Make HJKL keys work in special buffers
-(evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
-  "K" 'magit-discard-item
-  "L" 'magit-key-mode-popup-logging)
-(evil-add-hjkl-bindings magit-status-mode-map 'emacs
-  "K" 'magit-discard-item
-  "l" 'magit-key-mode-popup-logging
-  "h" 'magit-toggle-diff-refine-hunk)
-(evil-add-hjkl-bindings magit-log-mode-map 'emacs)
-(evil-add-hjkl-bindings magit-commit-mode-map 'emacs)
-(evil-add-hjkl-bindings magit-process-mode-map 'emacs)
-(evil-add-hjkl-bindings git-rebase-mode-map 'emacs)
-(evil-add-hjkl-bindings occur-mode 'emacs)
 
 (defun cofi/clear-empty-lines ()
   (let ((line (buffer-substring (point-at-bol) (point-at-eol))))
@@ -234,5 +194,80 @@
   "cr" 'comment-or-uncomment-region
 )
 
+;; Integration with other mode
+
+;; default initial state in modes
+(cl-loop for (mode . state) in '((inferior-emacs-lisp-mode     . emacs)
+                                 (pylookup-mode                . emacs)
+                                 (comint-mode                  . emacs)
+                                 (ebib-entry-mode              . emacs)
+                                 (ebib-index-mode              . emacs)
+                                 (ebib-log-mode                . emacs)
+                                 (elfeed-show-mode             . emacs)
+                                 (elfeed-search-mode           . emacs)
+                                 (gtags-select-mode            . emacs)
+                                 (shell-mode                   . emacs)
+                                 (term-mode                    . emacs)
+                                 (bc-menu-mode                 . emacs)
+                                 (magit-branch-manager-mode    . emacs)
+                                 (makey-key-mode               . emacs)
+                                 (semantic-symref-results-mode . emacs)
+                                 (rdictcc-buffer-mode          . emacs)
+                                 (ibuffer-mode                 . motion)
+                                 (org-agenda-mode              . motion)
+                                 (erc-mode                     . normal))
+         do (evil-set-initial-state mode state))
+
+;; besides, add HJKL keys to the initial state
+(evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
+  "K" 'magit-discard-item
+  "L" 'magit-key-mode-popup-logging)
+(evil-add-hjkl-bindings magit-status-mode-map 'emacs
+  "\C-u" 'evil-scroll-up
+  "\C-d" 'evil-scroll-down
+  "K" 'magit-discard-item
+  "l" 'magit-key-mode-popup-logging
+  "h" 'magit-toggle-diff-refine-hunk)
+(evil-add-hjkl-bindings magit-log-mode-map 'emacs)
+(evil-add-hjkl-bindings magit-commit-mode-map 'emacs)
+(evil-add-hjkl-bindings magit-process-mode-map 'emacs)
+(evil-add-hjkl-bindings git-rebase-mode-map 'emacs)
+(evil-add-hjkl-bindings occur-key-map 'emacs)
+(evil-add-hjkl-bindings -map 'emacs)
+(evil-add-hjkl-bindings package-menu-mode-map 'emacs
+  "H" 'package-menu-quick-help
+)
+
+(setq ;; C-<leader> to access from all buffers
+      evil-leader/in-all-states t
+      ;; enable <leader> anyway
+      evil-leader/no-prefix-mode-rx (list
+                                     "occur-mode"
+                                     "package-menu-mode"
+                                     "ibuffer-mode"
+                                     "magit-.*-mode"
+))
+
+(eval-after-load 'org
+  '(progn
+     (defvar org-mode-map)
+     (evil-make-overriding-map org-mode-map 'normal)
+     (evil-add-hjkl-bindings org-mode-map 'normal)))
+
+(eval-after-load 'org-agenda
+  '(progn
+     ;; use the standard Dired bindings as a base
+     (defvar org-agenda-mode-map)
+     (evil-make-overriding-map org-agenda-mode-map 'motion)
+     (evil-add-hjkl-bindings org-agenda-mode-map 'motion
+       "j" 'org-agenda-next-line
+       "k" 'org-agenda-previous-line
+       "J" 'org-agenda-goto-date
+       "L" 'org-agenda-log-mode
+       "K" 'org-agenda-capture
+       "S" 'org-agenda-schedule
+)))
+
+;;
 (provide 'setup-evil)
 ;;; setup-evil.el ends here
