@@ -86,7 +86,7 @@
                            "STARTED(s)"
                            "WAITING(w@/!)" ;; note for enter, timestamp for leaving
                            "SOMEDAY(.)"
-                           "|" "DONE(x!)" "CANCELLED(c@)")
+                           "|" "DONE(x)" "CANCELLED(c@)")
                           (sequence "TODELEGATE(-@)" "DELEGATED(d!)" "COMPLETE(x!)"))
       org-todo-keyword-faces
       '(("TODO" . (:foreground "#eee8d5" :weight bold))
