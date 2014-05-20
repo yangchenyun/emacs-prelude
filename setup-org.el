@@ -102,6 +102,42 @@
         )
       org-fontify-done-headline t
 
+      org-tag-alist '(
+                      ;; For the type system
+                      (:startgroup . nil)
+                      ("STUDY" . ?s)
+                      (:grouptags . nil)
+                      (:endgroup . nil)
+
+                      (:startgroup . nil)
+                      ("WORK" . ?w)
+                      (:grouptags . nil)
+                      ("PAID WORK" . ?p)
+                      ("UNPAID WORK" . ?u)
+                      (:endgroup . nil)
+
+                      (:startgroup . nil)
+                      ("LEISURE" . ?l)
+                      (:grouptags . nil)
+                      ("EXERCISE" . ?e)
+                      ("TRAVEL" . ?t)
+                      ("PLAY" . ?p)
+                      (:endgroup . nil)
+
+                      (:startgroup . nil)
+                      ("ERRANDS" . ?r)
+                      (:grouptags . nil)
+                      ("SHOPPING" . nil)
+                      ("COMMUTE" . ?c)
+                      ("EAT" . nil)
+                      (:endgroup . nil)
+
+                      ;; for context
+                      ("@home" . ?h)
+                      ("@away" . ?a)
+
+                      )
+
       org-structure-template-alist
       '(("s" "#+begin_src ?\n\n#+end_src" "<src lang=\"?\">\n\n</src>")
         ("e" "#+begin_example\n?\n#+end_example" "<example>\n?\n</example>")
