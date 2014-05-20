@@ -44,9 +44,9 @@
       evil-motion-state-tag
       (propertize " M " 'face '((:background "blue")))
       evil-visual-state-tag
-      (propertize "V" 'face '((:background "orange" :foreground "black")))
+      (propertize " V " 'face '((:background "orange" :foreground "black")))
       evil-operator-state-tag
-      (propertize "O" 'face '((:background "sky blue"))))
+      (propertize " O " 'face '((:background "sky blue"))))
 
 
 
@@ -212,7 +212,7 @@
                                  (makey-key-mode               . emacs)
                                  (semantic-symref-results-mode . emacs)
                                  (rdictcc-buffer-mode          . emacs)
-                                 (ibuffer-mode                 . motion)
+                                 (ibuffer-mode                 . normal)
                                  (org-agenda-mode              . motion)
                                  (erc-mode                     . normal))
          do (evil-set-initial-state mode state))
