@@ -18,6 +18,8 @@
 
 (setq find-function-C-source-directory "~/vendor/emacs/src")
 
+(prelude-require-package 'project-explorer)
+
 ;; as rgrep.el doesn't working in fish-shell
 (define-key prelude-mode-map [?\s-g] 'projectile-ag)
 

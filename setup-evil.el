@@ -172,7 +172,7 @@
   "k" 'kill-current-buffer
   "K" 'kill-buffer-and-window
   "f" 'ido-find-file
-  "d" 'dired-jump
+  "d" 'project-explorer-open
   "b" 'ibuffer
   "m" 'compile
   "/" 'evil-ex-nohighlight
@@ -211,6 +211,7 @@
                                  (makey-key-mode               . emacs)
                                  (semantic-symref-results-mode . emacs)
                                  (rdictcc-buffer-mode          . emacs)
+                                 (project-explorer-mode        . motion)
                                  (ibuffer-mode                 . normal)
                                  (org-agenda-mode              . motion)
                                  (erc-mode                     . normal))
@@ -251,6 +252,11 @@
      (defvar org-mode-map)
      (evil-make-overriding-map org-mode-map 'normal)
      (evil-add-hjkl-bindings org-mode-map 'normal)))
+
+(eval-after-load 'project-explorer
+  '(progn
+     (defvar project-explorer-mode-map)
+     (evil-make-overriding-map project-explorer-mode-map 'motion)))
 
 (eval-after-load 'org-agenda
   '(progn
