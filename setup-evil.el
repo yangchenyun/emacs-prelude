@@ -131,9 +131,8 @@
              "gM"    'evil-window-middle
              "H"     'beginning-of-line
              "L"     'end-of-line
-             "C-u"   'evil-scroll-up
-             "C-;"   'eval-expression
              "M-p"   'helm-projectile
+             "M-P"   'projectile-ag
              )
 
 (fill-keymap evil-motion-state-map

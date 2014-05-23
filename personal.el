@@ -30,6 +30,7 @@
 
 ;; eval like Light Table
 (global-set-key (kbd "M-<RET>") 'eval-last-sexp)
+(global-set-key (kbd "C-;") 'eval-expression)
 
 ; no scroll bars
 (menu-bar-mode -1)
