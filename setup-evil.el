@@ -133,6 +133,25 @@
              "L"     'end-of-line
              "M-p"   'helm-projectile
              "M-P"   'projectile-ag
+
+             ;; smartparens
+
+             ;; Finds opening '(' of the current list.
+             "(" 'sp-backward-up-sexp
+             ;; Finds closing ')' of the current list.
+             ")" 'sp-up-sexp
+             ;; Go to the start of current/previous sexp
+             "[[" 'sp-backward-sexp
+             ;; Go to the start of next sexp.
+             "]]" 'sp-forward-sexp
+
+             "}"  'sp-forward-barf-sexp
+             "{"  'sp-backward-barf-sexp
+
+             "gn" 'sp-next-sexp ;; in a AST sence
+             "gp" 'sp-previous-sexp
+             "gk" 'sp-kill-sexp
+             "gy" 'sp-copy-sexp
              )
 
 (fill-keymap evil-motion-state-map
@@ -167,7 +186,6 @@
 (add-hook 'evil-insert-state-exit-hook #'cofi/clear-empty-lines)
 
 (evil-leader/set-key
-  "w" 'save-buffer
   "W" 'save-some-buffers
   "k" 'kill-current-buffer
   "K" 'kill-buffer-and-window
@@ -190,6 +208,17 @@
   "cc" 'evilnc-copy-and-comment-lines
   "cp" 'evilnc-comment-or-uncomment-paragraphs
   "cr" 'comment-or-uncomment-region
+
+  ;; smartparens
+  ;; https://github.com/emezeske/paredit.vim/blob/master/doc/paredit.txt
+  "<" 'sp-backward-slurp-sexp
+  ">" 'sp-forward-slurp-sexp
+  "J" 'sp-join-sexp
+  "O" 'sp-split-sexp
+  "S" 'sp-splice-sexp
+  "w(" (prelude-wrap-with "(")
+  "w{" (prelude-wrap-with "{")
+  "w[" (prelude-wrap-with "[")
 )
 
 ;; Integration with other mode
@@ -272,6 +301,5 @@
        "S" 'org-agenda-schedule
 )))
 
-;;
 (provide 'setup-evil)
 ;;; setup-evil.el ends here
