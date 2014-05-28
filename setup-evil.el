@@ -283,11 +283,6 @@
      (evil-make-overriding-map org-mode-map 'normal)
      (evil-add-hjkl-bindings org-mode-map 'normal)))
 
-(eval-after-load 'project-explorer
-  '(progn
-     (defvar project-explorer-mode-map)
-     (evil-make-overriding-map project-explorer-mode-map 'motion)))
-
 (eval-after-load 'org-agenda
   '(progn
      ;; use the standard Dired bindings as a base
@@ -301,6 +296,10 @@
        "K" 'org-agenda-capture
        "S" 'org-agenda-schedule
 )))
+
+(eval-after-load 'smartparens
+  '(progn
+     (evil-define-key 'insert smartparens-mode-map [(shift return)] 'sp-newline)))
 
 (provide 'setup-evil)
 ;;; setup-evil.el ends here
