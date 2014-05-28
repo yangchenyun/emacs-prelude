@@ -190,7 +190,7 @@
   "k" 'kill-current-buffer
   "K" 'kill-buffer-and-window
   "f" 'ido-find-file
-  "d" 'project-explorer-open
+  "d" 'dired-jump
   "b" 'ibuffer
   "m" 'compile
   "/" 'evil-ex-nohighlight
@@ -201,6 +201,7 @@
 
   "oa" 'org-agenda
   "oc" 'org-capture
+  "cj" 'org-clock-goto
 
   ;; nerd commenter
   "ci" 'evilnc-comment-or-uncomment-lines

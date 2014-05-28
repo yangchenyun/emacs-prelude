@@ -62,7 +62,6 @@
   "co" 'org-clock-out
   "cq" 'org-clock-cancel
   "cd" 'org-clock-display
-  "cj" 'org-clock-goto
   "cr" 'org-clock-report
 
   "e" 'org-clock-modify-effort-estimate
