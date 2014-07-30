@@ -151,6 +151,7 @@
              "gn" 'sp-next-sexp ;; in a AST sence
              "gp" 'sp-previous-sexp
              "gk" 'sp-kill-sexp
+             "gu" 'sp-raise-sexp
              "gy" 'sp-copy-sexp
              )
 
