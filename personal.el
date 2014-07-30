@@ -6,6 +6,7 @@
 (prelude-require-package 'persp-projectile)
 (require 'persp-projectile)
 (persp-mode)
+(define-key projectile-mode-map [?\s-p] 'projectile-persp-switch-project)
 
 (prelude-require-package 'discover)
 (global-discover-mode 1)
