@@ -36,8 +36,8 @@
 (global-set-key (kbd "C-c <RET>") 'smex)
 
 ;; eval like Light Table
-(global-set-key (kbd "M-<RET>") 'eval-last-sexp)
-(global-set-key (kbd "C-;") 'eval-expression)
+(define-key key-translation-map (kbd "M-<RET>") (kbd "C-x C-e"))
+;; (global-set-key (kbd "M-<RET>") 'eval-last-sex)
 
 ; no scroll bars
 (menu-bar-mode -1)
