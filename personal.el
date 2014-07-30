@@ -32,6 +32,16 @@
 
 (prelude-require-package 'e2wm)
 (require 'e2wm)
+
+(prelude-require-package 'web-mode)
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+(setq web-mode-engines-alist  '(("underscorejs"    . "\\.ejs\\'")))
+
 ;; follow Steve Yegge's suggestion
 (global-set-key (kbd "C-c C-m") 'smex)
 (global-set-key (kbd "C-c <RET>") 'smex)
