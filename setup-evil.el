@@ -247,19 +247,6 @@
                                  (erc-mode                     . normal))
          do (evil-set-initial-state mode state))
 
-;; besides, add HJKL keys to the initial state
-(evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
-  "K" 'magit-discard-item
-  "L" 'magit-key-mode-popup-logging)
-(evil-add-hjkl-bindings magit-status-mode-map 'emacs
-  "\C-u" 'evil-scroll-up
-  "\C-d" 'evil-scroll-down
-  "K" 'magit-discard-item
-  "l" 'magit-key-mode-popup-logging
-  "h" 'magit-toggle-diff-refine-hunk)
-(evil-add-hjkl-bindings magit-log-mode-map 'emacs)
-(evil-add-hjkl-bindings magit-commit-mode-map 'emacs)
-(evil-add-hjkl-bindings magit-process-mode-map 'emacs)
 (evil-add-hjkl-bindings git-rebase-mode-map 'emacs)
 (evil-add-hjkl-bindings occur-key-map 'emacs)
 (evil-add-hjkl-bindings -map 'emacs)
@@ -276,12 +263,6 @@
                                      "ibuffer-mode"
                                      "magit-.*-mode"
 ))
-
-(eval-after-load 'org
-  '(progn
-     (defvar org-mode-map)
-     (evil-make-overriding-map org-mode-map 'normal)
-     (evil-add-hjkl-bindings org-mode-map 'normal)))
 
 (eval-after-load 'org-agenda
   '(progn
