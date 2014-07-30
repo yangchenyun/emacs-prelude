@@ -23,9 +23,14 @@
 ;; as rgrep.el doesn't working in fish-shell
 (define-key prelude-mode-map [?\s-g] 'projectile-ag)
 
+(prelude-require-package 'projectile-rails)
+(add-hook 'projectile-mode-hook 'projectile-rails-on)
+
 (require 'powerline)
 (powerline-evil-theme)
 
+(prelude-require-package 'e2wm)
+(require 'e2wm)
 ;; follow Steve Yegge's suggestion
 (global-set-key (kbd "C-c C-m") 'smex)
 (global-set-key (kbd "C-c <RET>") 'smex)

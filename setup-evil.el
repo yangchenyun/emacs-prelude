@@ -14,6 +14,7 @@
 (prelude-require-package 'surround)
 (prelude-require-package 'undo-tree)
 (prelude-require-package 'evil-numbers)
+(require 'evil-rails)
 
 (setq evil-find-skip-newlines t)
 (setq evil-move-cursor-back nil
@@ -279,9 +280,31 @@
        "S" 'org-agenda-schedule
 )))
 
+(eval-after-load 'elisp-slime-nav-mode
+  '(progn
+     (evil-define-key 'insert smartparens-mode-map [(shift return)] 'sp-newline)))
+
+(eval-after-load 'elisp-slime-nav
+  '(progn
+     (defvar elisp-slime-nav-mode-map)
+     (evil-make-overriding-map elisp-slime-nav-mode-map 'normal)
+     (evil-add-hjkl-bindings elisp-slime-nav-mode-map 'normal)))
+
 (eval-after-load 'smartparens
   '(progn
      (evil-define-key 'insert smartparens-mode-map [(shift return)] 'sp-newline)))
+
+(eval-after-load 'e2wm
+  '(progn
+     (defvar e2wm:def-plugin-files-mode-map)
+     (evil-make-overriding-map e2wm:def-plugin-files-mode-map 'normal)
+
+     (defvar e2wm:def-plugin-imenu-mode-map)
+     (evil-make-overriding-map e2wm:def-plugin-imenu-mode-map 'normal)
+
+     (defvar e2wm:def-plugin-history-list-mode-map)
+     (evil-make-overriding-map e2wm:def-plugin-history-list-mode-map 'normal)
+))
 
 (provide 'setup-evil)
 ;;; setup-evil.el ends here
