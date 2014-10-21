@@ -30,6 +30,18 @@
 (require 'powerline)
 (powerline-evil-theme)
 
+;; extempore setup
+(require 'extempore)
+(add-to-list 'auto-mode-alist '("\\.xtm$" . extempore-mode))
+(defun extempore-coding-defaults ()
+  (smartparens-strict-mode +1)
+  (rainbow-delimiters-mode +1))
+(add-hook 'extempore-mode-hook 'extempore-coding-defaults)
+(setq user-extempore-directory "/usr/local/Cellar/extempore/0.53/")
+
+(prettify-symbols-mode)
+(skewer-setup)
+
 (prelude-require-package 'e2wm)
 (require 'e2wm)
 
