@@ -69,7 +69,7 @@
 )
 
 
-(setq org-directory (expand-file-name "~/Dropbox/.org")
+(setq org-directory (expand-file-name "~/Google Drive/.org")
       org-agenda-files (list org-directory)
       org-default-notes-file (expand-file-name "inbox.org" org-directory)
       org-completion-use-ido t        ; Complete with IDO in Org
