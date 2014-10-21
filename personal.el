@@ -26,10 +26,7 @@
 
 (prelude-require-package 'projectile-rails)
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
-
-(require 'powerline)
-(powerline-evil-theme)
-
+ 
 ;; extempore setup
 (require 'extempore)
 (add-to-list 'auto-mode-alist '("\\.xtm$" . extempore-mode))
@@ -39,7 +36,12 @@
 (add-hook 'extempore-mode-hook 'extempore-coding-defaults)
 (setq user-extempore-directory "/usr/local/Cellar/extempore/0.53/")
 
+(require 'powerline)
+(powerline-evil-theme)
+
 (prettify-symbols-mode)
+
+(prelude-require-package 'skewer-mode)
 (skewer-setup)
 
 (prelude-require-package 'e2wm)
@@ -129,6 +131,7 @@ The `car' of each item is the font family, the `cdr' the preferred font size.")
 
 (choose-best-fonts)
 
+(prelude-require-package 'solarized-theme)
 (defun pick-color-theme (frame)
   (if (window-system frame)
       (load-theme 'solarized-dark t)
