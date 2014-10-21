@@ -134,6 +134,7 @@
              "L"     'end-of-line
              "M-p"   'helm-projectile
              "M-P"   'projectile-ag
+             "M-."   'find-tag
 
              ;; smartparens
 
