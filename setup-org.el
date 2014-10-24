@@ -182,6 +182,9 @@ SCHEDULED: %^t
          (file+headline (expand-file-name "inbox.org" org-directory) "Quick Notes"))
         ("j" "Daily Journal" entry
          (file+datetree (expand-file-name "inbox.org" org-directory))
+         "* %?\n\n%i\n") 
+        ("m" "Meeting Journal" entry
+         (file+datetree (expand-file-name "meetings.org" org-directory))
          "* %?\n\n%i\n")))
 
 (defun org-dblock-write:rangereport (params)
