@@ -40,7 +40,8 @@
 (require 'powerline)
 (powerline-evil-theme)
 
-(prettify-symbols-mode)
+(if (equal emacs-version "24.4.1")
+    (prettify-symbols-mode))
 
 (prelude-require-package 'skewer-mode)
 (skewer-setup)
