@@ -244,15 +244,16 @@
                                  (makey-key-mode               . emacs)
                                  (semantic-symref-results-mode . emacs)
                                  (rdictcc-buffer-mode          . emacs)
+                                 (gtags-browse-tags-mode       . emacs)
                                  (project-explorer-mode        . motion)
                                  (ibuffer-mode                 . normal)
                                  (org-agenda-mode              . motion)
                                  (erc-mode                     . normal))
          do (evil-set-initial-state mode state))
 
+(evil-add-hjkl-bindings gtags-browse-tags-mode-map 'emacs)
 (evil-add-hjkl-bindings git-rebase-mode-map 'emacs)
 (evil-add-hjkl-bindings occur-key-map 'emacs)
-(evil-add-hjkl-bindings -map 'emacs)
 (evil-add-hjkl-bindings package-menu-mode-map 'emacs
   "H" 'package-menu-quick-help
 )
