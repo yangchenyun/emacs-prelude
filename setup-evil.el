@@ -51,8 +51,8 @@
 
 
 
-(require-and-exec 'surround
-  (setq-default surround-pairs-alist '((?\( . ("(" . ")"))
+(require-and-exec 'evil-surround
+  (setq-default evil-surround-pairs-alist '((?\( . ("(" . ")"))
                                        (?\[ . ("[" . "]"))
                                        (?\{ . ("{" . "}"))
 
@@ -66,7 +66,7 @@
                                        (?b . ("[" . "]"))
                                        (?B . ("{" . "}"))
                                        (?< . ("<" . ">"))
-                                       (?t . surround-read-tag)))
+                                       (?t . evil-surround-read-tag)))
 
   (defun yangchenyun/surround-add-pair (trigger begin-or-fun &optional end)
     "Add a surround pair.
@@ -77,9 +77,9 @@
                 (if end
                     (cons begin-or-fun end)
                   begin-or-fun))
-          surround-pairs-alist))
+          evil-surround-pairs-alist))
 
-  (global-surround-mode 1)
+  (global-evil-surround-mode 1)
   (add-to-hooks (lambda ()
                   (yangchenyun/surround-add-pair "`" "`"  "'"))
                 '(emacs-lisp-mode-hook lisp-mode-hook))
