@@ -176,6 +176,9 @@
   "g" 'gtags-show-tag-locations-regexp
   "j" 'grok-jump-to-definition-at-point)
 
+;; projectile configuration
+(add-to-list 'projectile-project-root-files-bottom-up "BUILD")
+
 ;; Store backup and autosave files under /google on local disk
 ;; more about https://snarfed.org/gnu_emacs_backup_files
 
