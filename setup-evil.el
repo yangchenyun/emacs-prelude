@@ -201,6 +201,7 @@
   "s" 'helm-occur
   "S" 'eshell
   "." 'smex
+  "p" 'projectile-switch-project
 
   "oa" 'org-agenda
   "oc" 'org-capture
