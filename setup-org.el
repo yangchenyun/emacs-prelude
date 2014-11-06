@@ -336,6 +336,13 @@ this with to-do items than with projects or headings."
     (org-clock-persistence-insinuate)
     (add-to-list 'org-modules "org-habit")))
 
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)
+   (emacs-lisp . t)))
+
+(setq org-src-fontify-natively t)
+
 ;; disable longline highlighting
 ;; (add-hook 'org-mode-hook #'stante-whitespace-style-no-long-lines)
 
