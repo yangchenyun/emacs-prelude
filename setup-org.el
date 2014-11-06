@@ -68,9 +68,11 @@
   "a" 'org-archive-subtree-default
 )
 
-
-(setq org-directory (expand-file-name "~/Google Drive/.org")
-      org-agenda-files (list org-directory)
+(defvar org-dir "~/Google Drive/.org")
+(setq org-directory (expand-file-name org-dir)
+      org-agenda-files (list (concat org-dir "/plans.org")
+                             (concat org-dir "/work.org")
+                             (concat org-dir "/inbox.org"))
       org-default-notes-file (expand-file-name "inbox.org" org-directory)
       org-completion-use-ido t        ; Complete with IDO in Org
       org-yank-adjusted-subtrees t    ; Adjust level when yanking entire trees
