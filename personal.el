@@ -73,6 +73,20 @@
 (when (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 
+;; terminal mode settings
+(unless window-system
+  (xterm-mouse-mode 1)
+  (menu-bar-mode 1)
+  (setq x-select-enable-clipboard t
+        interprogram-paste-function 'x-cut-buffer-or-selection-value)
+  (global-set-key [mouse-4] '(lambda ()
+                               (interactive)
+                               (scroll-down 1)))
+  (global-set-key [mouse-5] '(lambda ()
+                               (interactive)
+                               (scroll-up 1))))
+
+
 ; be quiet
 (setq ring-bell-function 'ignore)
 
