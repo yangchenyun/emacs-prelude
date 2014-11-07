@@ -174,8 +174,7 @@ The `car' of each item is the font family, the `cdr' the preferred font size.")
 (require 'setup-cider)
 
 ;; load google-configuration
-(if (file-exists-p "/google")
-    (require 'setup-google))
+(require 'setup-google)
 
 ;; start emacs server so that you can use emacsclient to open new files
 ;; quickly in your one emacs session (which you start after a reboot and
