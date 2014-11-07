@@ -245,6 +245,7 @@
                                  (semantic-symref-results-mode . emacs)
                                  (rdictcc-buffer-mode          . emacs)
                                  (gtags-browse-tags-mode       . emacs)
+                                 (finder-mode                  . emacs)
                                  (project-explorer-mode        . motion)
                                  (ibuffer-mode                 . normal)
                                  (org-agenda-mode              . motion)
