@@ -165,8 +165,19 @@
   ;; Google Gtags
   (global-set-key [f7] 'google-show-tag-locations-regexp)
   (global-set-key [f8] 'google-show-callers)
-  (global-set-key [f9] 'google-pop-tag)
-  (global-set-key [f10] 'google-show-matching-tags)
+
+  (fill-keymap evil-normal-state-map
+    "C-]"   'gtags-show-tag-locations-under-point
+    "C-o"   'gtags-pop-tag)
+
+  ;; some evil goodies
+  (evil-leader/set-key
+    "m" 'google3-build
+    "g" 'gtags-show-tag-locations-regexp
+    "j" 'grok-jump-to-definition-at-point)
+
+  ;; projectile configuration
+  (add-to-list 'projectile-project-root-files-bottom-up "BUILD")
 
   ;; Store backup and autosave files under /google on local disk
   ;; more about https://snarfed.org/gnu_emacs_backup_files
