@@ -34,6 +34,13 @@
 (require 'prelude-xml)
 (require 'prelude-yaml)
 
+;; Python code completion backend
+(prelude-require-package 'anaconda-mode)
+(prelude-require-package 'company-anaconda)
+
+;; http documentation
+(prelude-require-package 'know-your-http-well)
+
 (prelude-require-package 'ido-vertical-mode)
 (ido-vertical-mode 1)
 
