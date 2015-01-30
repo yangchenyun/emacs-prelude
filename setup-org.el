@@ -64,7 +64,7 @@
   "cd" 'org-clock-display
   "cr" 'org-clock-report
 
-  "e" 'org-clock-modify-effort-estimate
+  "e" 'org-set-effort
   "a" 'org-archive-subtree-default
 )
 
@@ -72,6 +72,7 @@
 (setq org-directory (expand-file-name org-dir)
       org-agenda-files (list (concat org-dir "/plans.org")
                              (concat org-dir "/work.org")
+                             (concat org-dir "/meetings.org")
                              (concat org-dir "/inbox.org"))
       org-default-notes-file (expand-file-name "inbox.org" org-directory)
       org-completion-use-ido t        ; Complete with IDO in Org
@@ -184,7 +185,7 @@ SCHEDULED: %^t
          (file+headline (expand-file-name "inbox.org" org-directory) "Quick Notes"))
         ("j" "Daily Journal" entry
          (file+datetree (expand-file-name "inbox.org" org-directory))
-         "* %?\n\n%i\n") 
+         "* %?\n\n%i\n")
         ("m" "Meeting Journal" entry
          (file+datetree (expand-file-name "meetings.org" org-directory))
          "* %?\n\n%i\n")))
