@@ -36,6 +36,8 @@
   ;; Spitfire Template
   (require 'cheetah-mode "cheetah")
 
+  (require 'soy-mode "/google/src/head/depot/google3/template/soy/emacs/soy-mode.el")
+
   ;; Let emacs know which file extensions belong to which mode.
   ;; We intentionally simply prepend our list to the pre-existing
   ;; auto-mode-alist to clobber any values that may have been added by debian's
@@ -178,6 +180,22 @@
 
   ;; projectile configuration
   (add-to-list 'projectile-project-root-files-bottom-up "BUILD")
+
+  (flycheck-define-checker google3-python
+    "A Python syntax checker for google3 code."
+    :command ("gpylint" "--mode" "base" "--msg-template"
+              "{path}:{line}:{column}:{C}:[{msg_id}({symbol}), {obj}] {msg}" source-inplace)
+    :error-patterns
+    ((error line-start (file-name) ":" line ":" column ":"
+            (or "E" "F") ":" (message) line-end)
+     (warning line-start (file-name) ":" line ":" column ":"
+              (or "W" "R") ":" (message) line-end)
+     (info line-start (file-name) ":" line ":" column ":"
+           "C:" (message) line-end))
+    :modes (python-mode)
+    :predicate (lambda () (member "google3" (split-string buffer-file-name "/"))))
+
+  (add-to-list 'flycheck-checkers 'google3-python)
 
   ;; Store backup and autosave files under /google on local disk
   ;; more about https://snarfed.org/gnu_emacs_backup_files
