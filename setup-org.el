@@ -6,8 +6,7 @@
   "Go to end of line and call provided function"
   (end-of-line)
   (funcall fun)
-  (evil-append nil)
-  )
+  (evil-append nil))
 
 ;; normal state shortcuts
 (evil-define-key 'normal org-mode-map
@@ -29,6 +28,29 @@
   "-" 'org-cycle-list-bullet
   "W" 'org-refile
   (kbd "TAB") 'org-cycle)
+
+(evil-leader/set-key-for-mode 'org-mode
+  ;; org-mode command
+  "oa" 'org-agenda
+  "oc" 'org-capture
+  "oj" 'org-clock-goto
+  "n" 'org-narrow-to-subtree
+  "w" 'widen
+  "py" 'org-awesome-plan/create-or-update-year-plan-property
+  "pm" 'org-awesome-plan/create-or-update-month-plan-property
+  "pw" 'org-awesome-plan/create-or-update-week-plan-property
+  "^" 'org-sort
+  ;; clock related keymaps
+  "ci" 'org-clock-in
+  "cl" 'org-clock-in-last
+  "co" 'org-clock-out
+  "cq" 'org-clock-cancel
+  "cd" 'org-clock-display
+  "cr" 'org-clock-report
+
+  "e" 'org-set-effort
+  "a" 'org-archive-subtree-default
+)
 
 ;; normal & insert state shortcuts.
 (mapc (lambda (state)
@@ -53,20 +75,6 @@
                              (org-metaright))))
           ))
       '(normal insert))
-
-(evil-leader/set-key-for-mode 'org-mode
-  "^" 'org-sort
-  ;; clock related keymaps
-  "ci" 'org-clock-in
-  "cl" 'org-clock-in-last
-  "co" 'org-clock-out
-  "cq" 'org-clock-cancel
-  "cd" 'org-clock-display
-  "cr" 'org-clock-report
-
-  "e" 'org-set-effort
-  "a" 'org-archive-subtree-default
-)
 
 (defvar org-dir "~/Google Drive/.org")
 (setq org-directory (expand-file-name org-dir)

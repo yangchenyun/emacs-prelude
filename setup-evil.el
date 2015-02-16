@@ -204,13 +204,6 @@
   "." 'smex
   "p" 'projectile-switch-project
 
-  ;; org-mode command
-  "oa" 'org-agenda
-  "oc" 'org-capture
-  "cj" 'org-clock-goto
-  "on" 'org-narrow-to-subtree
-  "ow" 'widen
-
   ;; nerd commenter
   "ci" 'evilnc-comment-or-uncomment-lines
   "cl" 'evilnc-comment-or-uncomment-to-the-line
