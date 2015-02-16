@@ -23,14 +23,18 @@
 ;; How much effort I could plan for March?
 ;;   minus commited hours / minus previous planned hours
 
-;; TODO: sparse tree view, only view tasks assigned to this week / month
-
 ;; TODO: restriction on category/goal ids. when they are created, they should automatically fetch from the top level properties and update them accordingly; category ids must be unique / goal ids must be unique within one category.
 
 ;; TODO: monthly and weekly plan should be nested into the yearly plan
 
+(defun org-awesome-plan/plan-label (plan-type)
+  (upcase (format "%s_plan" plan-type)))
+
+(defun org-awesome-plan/plan-re (plan-type)
+  (concat ":" (org-awesome-plan/plan-label plan-type) ":[ \t]+"
+          "\\((\\(([[:digit:] \\t\\.]+)[ \\t]*\\)+)\\)"))
+
 (defun org-awesome-plan/mark-as-goal ()
-  (interactive (list nil))
   (let ((value (org-read-property-value "GOAL_ID")))
     (org-set-property "GOAL_ID" value)))
 
@@ -38,85 +42,112 @@
   (org-entry-get pom "GOAL_ID" nil))
 
 (defun org-awesome-plan/mark-as-category ()
-  (interactive (list nil))
   (let ((value (org-read-property-value "CATEGORY_ID")))
     (org-set-property "CATEGORY_ID" value)))
 
 (defun org-awesome-plan/is-category (&optional pom)
   (org-entry-get pom "CATEGORY_ID" nil))
 
+(defun org-awesome-plan/only-show-plan-for-week (week)
+  (org-awesome-plan/interactive-for week)
+    (org-awesome-plan/only-show-plan 'week week))
+
+(defun org-awesome-plan/only-show-plan-for-month (month)
+  (org-awesome-plan/interactive-for month)
+  (org-awesome-plan/only-show-plan 'month month))
+
+(defun org-awesome-plan/only-show-plan-for-year (year)
+  (org-awesome-plan/interactive-for year)
+    (org-awesome-plan/only-show-plan 'year year))
+
 (defun org-awesome-plan/total-hours-for-year (year)
-  (interactive
-   (let* ((cur-year (nth 5 (decode-time (current-time))))
-          (year (read-number "Year: " cur-year)))
-     (list year)))
+  (org-awesome-plan/interactive-for year)
   (message "%s year total hours: %d"
            year
            (org-awesome-plan/acc-hours-for-period 'year year)))
 
 (defun org-awesome-plan/total-hours-for-month (month)
-  (interactive
-   (let* ((cur-month (nth 4 (decode-time (current-time))))
-          (month (read-number "Month: " cur-month)))
-     (list month)))
+  (org-awesome-plan/interactive-for month)
   (message "%s total hours: %d"
            (calendar-month-name month)
            (org-awesome-plan/acc-hours-for-period 'month month)))
 
 (defun org-awesome-plan/total-hours-for-week (week)
-  (interactive
-   (let* ((cur-week (read (format-time-string "%U" (current-time))))
-          (week (read-number "Week: " cur-week)))
-     (list week)))
+  (org-awesome-plan/interactive-for week)
   (message "%dth week total hours: %d"
            week
            (org-awesome-plan/acc-hours-for-period 'week week)))
 
 (defun org-awesome-plan/create-or-update-year-plan-property (hours &optional year)
-  (interactive
-   (let* ((cur-year (nth 5 (decode-time (current-time))))
-          (hours (read-number "Hours: "))
-          (year (read-number "Year: " cur-year)))
-     (list hours year)))
-  (when (and year (not (string-match "^[12][0-9]\\{3\\}$" (format "%s" year))))
-    (user-error "invalid year: %s." year))
+  (org-awesome-plan/interactive-for hours year)
   (org-awesome-plan/update-plans-property 'year year hours))
 
 (defun org-awesome-plan/create-or-update-month-plan-property (hours &optional month)
-  (interactive
-   (let* ((cur-month (nth 4 (decode-time (current-time))))
-          (hours (read-number "Hours: "))
-          (month (read-number "Month: " cur-month)))
-     (list hours month)))
-  (when (and month (not (ignore-errors (calendar-month-name month))))
-    (user-error "invalid month: %s." month))
+  (org-awesome-plan/interactive-for hours month)
   (org-awesome-plan/update-plans-property 'month month hours))
 
 (defun org-awesome-plan/create-or-update-week-plan-property (hours &optional week)
-  (interactive
-   (let* ((cur-week (read (format-time-string "%U" (current-time))))
-          (hours (read-number "Hours: "))
-          (week (read-number "Week: " cur-week)))
-     (list hours week)))
-  (when (and week (not (<= week 52)))
-    (user-error "invalid week: %s." week))
+  (org-awesome-plan/interactive-for hours week)
   (org-awesome-plan/update-plans-property 'week week hours))
 
-(defun org-awesome-plan/acc-hours-for-period (type period)
-  (let ((re (concat (upcase (format ":%s_plan:[ \\t]+" type))
-                    "\\((\\(([[:digit:] \\t\\.]+)[ \\t]*\\)+)\\)"))
+(defmacro org-awesome-plan/interactive-for (&rest arg-types)
+  "Macros to build `interactive'for commands. ARG-TYPES should be week/month/year/hours.
+It will setup reasonable default and call the read functions for
+types in PLAN_TYPES and validate the input in the `interactive'
+call. "
+  `(interactive
+    (let* ((cur-week (read (format-time-string "%U" (current-time))))
+           (cur-month (nth 4 (decode-time (current-time))))
+           (cur-year (nth 5 (decode-time (current-time))))
+           (hours ,(when (member 'hours arg-types)
+                    '(read-number "Hours: ")))
+           (week ,(when (member 'week arg-types)
+                    '(read-number "Week: " cur-week)))
+           (month ,(when (member 'month arg-types)
+                     '(read-number "Month: " cur-month)))
+           (year ,(when (member 'year arg-types)
+                    '(read-number "Year: " cur-year))))
+      (when (and year (not (string-match "^[12][0-9]\\{3\\}$" (format "%s" year))))
+        (user-error "invalid year: %s." year))
+      (when (and month (not (ignore-errors (calendar-month-name month))))
+        (user-error "invalid month: %s." month))
+      (when (and week (not (<= week 52)))
+        (user-error "invalid week: %s." week))
+      ,(cons 'list arg-types))))
+
+(defun org-awesome-plan/acc-hours-for-period (plan-type period)
+  "Return the accumulated hours for the PERIOD of PLAN-TYPE in current buffer. "
+  (let ((re (org-awesome-plan/plan-re plan-type))
         (acc 0))
-    (goto-char (point-min))
-    (while (and (not (eobp))
-                (re-search-forward re (point-max) t))
-      (let* ((plans (read (match-string-no-properties 1)))
-             (hour (org-awesome-plan/plan-hours (assoc period plans))))
-        (when hour
-          (setq acc (+ acc hour)))))
+    (save-excursion
+      (goto-char (point-min))
+      (while (and (not (eobp))
+                  (re-search-forward re (point-max) t))
+        (let* ((plans (read (match-string-no-properties 1)))
+               (hour (org-awesome-plan/plan-hours (assoc period plans))))
+          (when hour
+            (setq acc (+ acc hour))))))
     acc))
 
-(defun org-awesome-plan/update-plans-property (type period hours)
-  (let ((label (upcase (format "%s_plan" type))))
+(defun org-awesome-plan/only-show-plan (plan-type period)
+  "Make a sparse tree of current buffer of headings contains the PERIOD of PLAN-TYPE. i.e. 8th week, year 2015, 2nd month etc."
+  (let* ((case-fold-search nil)
+	 (regexp (org-awesome-plan/plan-re plan-type))
+	 (callback
+	  (lambda ()
+            (let ((plans (read (match-string-no-properties 1))))
+              (assoc period plans)))))
+
+    (save-match-data
+      (message "%d goals in %d %s."
+              (org-occur regexp nil callback)
+              period plan-type))))
+
+(defun org-awesome-plan/update-plans-property (plan-type period hours)
+  "Update the PROPERTY for hours allocated in the PERIOD of
+PLAN-TYPE. PLAN-TYPE should be one of 'week/'month/'year and
+formatted with `org-awesome-plan/plan-label'. "
+  (let ((label (org-awesome-plan/plan-label plan-type)))
     (org-set-property
     label
     (format "%s" (org-awesome-plan/create-or-update-plans
@@ -126,6 +157,12 @@
 
 ;; the data model for plan
 (defun org-awesome-plan/create-or-update-plans (period hours &optional plans)
+  "Create or update the PLANS with PERIOD and HOURS.  IF old
+PLANS list exists and PLAN exists for the PERIOD, it is updated
+for its HOURS; otherwise, append new PLAN created by
+`org-awesome-plan/create-plan' to the PLANS.  If PLANS is nil,
+return a list contain a new plan created by
+`org-awesome-plan/create-plan'."
   (if plans
       (let ((plan (assoc period plans)))
         (if plan (progn
@@ -135,12 +172,15 @@
     (list (org-awesome-plan/create-plan period hours))))
 
 (defun org-awesome-plan/create-plan (period hours)
+  "PLAN constructor. Create plan from PERIOD and HOURS."
   (cons period hours))
 
 (defun org-awesome-plan/plan-period (plan)
+  "Get the period of PLAN."
   (car plan))
 
 (defun org-awesome-plan/plan-hours (plan)
+  "Get the hours of PLAN."
   (cdr plan))
 
 (provide 'org-awesome-plan)

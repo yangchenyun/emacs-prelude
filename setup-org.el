@@ -30,15 +30,23 @@
   (kbd "TAB") 'org-cycle)
 
 (evil-leader/set-key-for-mode 'org-mode
-  ;; org-mode command
   "oa" 'org-agenda
   "oc" 'org-capture
   "oj" 'org-clock-goto
   "n" 'org-narrow-to-subtree
   "w" 'widen
+
+  ;; awesome plan
+  "y" 'org-awesome-plan/total-hours-for-year
+  "m" 'org-awesome-plan/total-hours-for-month
+  "w" 'org-awesome-plan/total-hours-for-week
   "py" 'org-awesome-plan/create-or-update-year-plan-property
   "pm" 'org-awesome-plan/create-or-update-month-plan-property
   "pw" 'org-awesome-plan/create-or-update-week-plan-property
+  "psy" 'org-awesome-plan/only-show-plan-for-year
+  "psm" 'org-awesome-plan/only-show-plan-for-month
+  "psw" 'org-awesome-plan/only-show-plan-for-week
+
   "^" 'org-sort
   ;; clock related keymaps
   "ci" 'org-clock-in
