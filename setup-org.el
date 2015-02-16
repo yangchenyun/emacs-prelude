@@ -355,4 +355,5 @@ this with to-do items than with projects or headings."
 ;; disable longline highlighting
 ;; (add-hook 'org-mode-hook #'stante-whitespace-style-no-long-lines)
 
+(require 'org-awesome-plan)
 (provide 'setup-org)
