@@ -22,6 +22,7 @@
 (setq evil-default-cursor t)
 (setq evil-mode-line-format nil)
 (setq evil-leader/leader ",")
+(setq evil-want-C-w-in-emacs-state t)
 
 (setq evil-search-module 'evil-search)
 

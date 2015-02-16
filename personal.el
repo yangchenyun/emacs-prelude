@@ -61,6 +61,9 @@
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
 
+(prelude-require-package 'osx-dictionary)
+(global-set-key (kbd "C-c d") 'osx-dictionary-search-pointer)
+
 (setq find-function-C-source-directory "~/vendor/emacs/src")
 
 (sp-use-smartparens-bindings)
@@ -104,6 +107,7 @@
 ;; eval like Light Table
 (define-key key-translation-map (kbd "M-<RET>") (kbd "C-x C-e"))
 ;; (global-set-key (kbd "M-<RET>") 'eval-last-sex)
+(define-key emacs-lisp-mode-map (kbd "C-c e") 'macrostep-expand)
 
 ; no scroll bars
 (menu-bar-mode -1)
