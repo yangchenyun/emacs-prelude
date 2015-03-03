@@ -23,6 +23,7 @@
 (setq evil-mode-line-format nil)
 (setq evil-leader/leader ",")
 (setq evil-want-C-w-in-emacs-state t)
+(setq evil-symbol-word-search t) ;; * and # should search for words, not symbols
 
 (setq evil-search-module 'evil-search)
 
