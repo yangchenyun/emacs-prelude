@@ -355,5 +355,19 @@ this with to-do items than with projects or headings."
 ;; disable longline highlighting
 ;; (add-hook 'org-mode-hook #'stante-whitespace-style-no-long-lines)
 
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(
+   (sh . t)
+   (python . t)
+   (R . t)
+   (ruby . t)
+   (ditaa . t)
+   (dot . t)
+   (octave . t)
+   (sqlite . t)
+   (perl . t)
+   ))
+
 (require 'org-awesome-plan)
 (provide 'setup-org)
