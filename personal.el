@@ -230,6 +230,11 @@ The `car' of each item is the font family, the `cdr' the preferred font size.")
 (require 'setup-org)
 (require 'setup-cider)
 
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (set (make-local-variable 'compile-command)
+                 (concat "ruby " buffer-file-name))))
+
 ;; load google-configuration
 (require 'setup-google)
 
