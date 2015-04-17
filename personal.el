@@ -34,6 +34,9 @@
 (require 'prelude-xml)
 (require 'prelude-yaml)
 
+;; convert between under_score and CamelCase
+(prelude-require-package 'string-inflection)
+
 ;; Python code completion backend
 (prelude-require-package 'anaconda-mode)
 (prelude-require-package 'company-anaconda)
