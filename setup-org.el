@@ -89,6 +89,7 @@
       org-agenda-files (list (concat org-dir "/plans.org")
                              (concat org-dir "/work.org")
                              (concat org-dir "/meetings.org")
+                             (concat org-dir "/expr/newformat.org")
                              (concat org-dir "/inbox.org"))
       org-default-notes-file (expand-file-name "inbox.org" org-directory)
       org-completion-use-ido t        ; Complete with IDO in Org
@@ -375,7 +376,9 @@ this with to-do items than with projects or headings."
    (octave . t)
    (sqlite . t)
    (perl . t)
+   (awk . t)
    ))
+(setq org-babel-sh-command "bash")
 
 (require 'org-awesome-plan)
 (provide 'setup-org)

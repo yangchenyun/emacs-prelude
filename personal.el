@@ -36,7 +36,8 @@
 
 ;; convert between under_score and CamelCase
 (prelude-require-package 'string-inflection)
-
+(prelude-require-package 'emmet-mode)
+(prelude-require-package 'tern)
 ;; Python code completion backend
 (prelude-require-package 'anaconda-mode)
 (prelude-require-package 'company-anaconda)
@@ -236,7 +237,12 @@ The `car' of each item is the font family, the `cdr' the preferred font size.")
 (add-hook 'ruby-mode-hook
           (lambda ()
             (set (make-local-variable 'compile-command)
-                 (concat "ruby " buffer-file-name))))
+                 (concat "ruby " "\"" buffer-file-name "\""))))
+
+(add-hook 'python-mode-hook
+          (lambda ()
+            (set (make-local-variable 'compile-command)
+                 (concat "python " "'" buffer-file-name "'"))))
 
 ;; load google-configuration
 (require 'setup-google)
