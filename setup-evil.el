@@ -120,6 +120,7 @@
        (t (push evt unread-command-events))))))
 
 (fill-keymap evil-normal-state-map
+             "!"     'string-inflection-cycle
              "Y"     (kbd "y$")
              "+"     'evil-numbers/inc-at-pt
              "-"     'evil-numbers/dec-at-pt

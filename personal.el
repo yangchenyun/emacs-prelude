@@ -34,6 +34,8 @@
 (require 'prelude-xml)
 (require 'prelude-yaml)
 
+;; convert between under_score and CamelCase
+(prelude-require-package 'string-inflection)
 (prelude-require-package 'emmet-mode)
 (prelude-require-package 'tern)
 (prelude-require-package 'editorconfig)
