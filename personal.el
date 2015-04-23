@@ -36,6 +36,7 @@
 
 (prelude-require-package 'emmet-mode)
 (prelude-require-package 'tern)
+(prelude-require-package 'editorconfig)
 ;; Python code completion backend
 (prelude-require-package 'anaconda-mode)
 (prelude-require-package 'company-anaconda)
