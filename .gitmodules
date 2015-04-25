@@ -1,0 +1,3 @@
+[submodule "yasnippets"]
+	path = yasnippets
+	url = git@bitbucket.org:yangchenyun/yasnippets.git
