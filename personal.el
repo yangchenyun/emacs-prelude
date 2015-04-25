@@ -40,9 +40,10 @@
 (prelude-require-package 'tern)
 (prelude-require-package 'editorconfig)
 (prelude-require-package 'yasnippet)
+(setq yas/root-directory
+      (list "~/.emacs.d/personal/yasnippets" 'yas-installed-snippets-dir))
 (yas-global-mode)
-(add-to-list 'yas/root-directory
-             "~/.emacs.d/personal/yasnippets")
+(yas-reload-all)
 ;; Python code completion backend
 (prelude-require-package 'anaconda-mode)
 (prelude-require-package 'company-anaconda)
@@ -80,9 +81,6 @@
 ;; as rgrep.el doesn't working in fish-shell
 (define-key prelude-mode-map [?\s-g] 'projectile-ag)
 
-(prelude-require-package 'projectile-rails)
-(add-hook 'projectile-mode-hook 'projectile-rails-on)
-
 ;; extempore setup
 (require 'extempore)
 (add-to-list 'auto-mode-alist '("\\.xtm$" . extempore-mode))
@@ -95,14 +93,13 @@
 (require 'powerline)
 (powerline-evil-theme)
 
-(if (equal emacs-version "24.4.1")
-    (prettify-symbols-mode))
+(if (version< "24.4.1" emacs-version)
+    (global-prettify-symbols-mode))
 
 (prelude-require-package 'skewer-mode)
 (skewer-setup)
 
 (prelude-require-package 'e2wm)
-(require 'e2wm)
 
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
@@ -118,13 +115,6 @@
 ;; (global-set-key (kbd "M-<RET>") 'eval-last-sex)
 (define-key emacs-lisp-mode-map (kbd "C-c e") 'macrostep-expand)
 
-; no scroll bars
-(menu-bar-mode -1)
-(when (fboundp 'tool-bar-mode)
-  (tool-bar-mode -1))
-(when (fboundp 'scroll-bar-mode)
-  (scroll-bar-mode -1))
-
 ;; terminal mode settings
 (unless window-system
   (xterm-mouse-mode 1)
@@ -138,13 +128,10 @@
                                (interactive)
                                (scroll-up 1))))
 
-
 ; be quiet
 (setq ring-bell-function 'ignore)
 
-(setq mac-option-modifier 'super)
-(setq mac-command-modifier 'meta)
-(setq ns-function-modifier 'hyper)
+(prelude-swap-meta-and-super)
 
 ;; mac friendly font
 (setq ns-use-srgb-colorspace t)
@@ -239,12 +226,12 @@ The `car' of each item is the font family, the `cdr' the preferred font size.")
 (require 'setup-org)
 (require 'setup-cider)
 
-(add-hook 'ruby-mode-hook
+(add-hook 'prelude-ruby-mode-hook
           (lambda ()
             (set (make-local-variable 'compile-command)
                  (concat "ruby " "\"" buffer-file-name "\""))))
 
-(add-hook 'python-mode-hook
+(add-hook 'prelude-python-mode-hook
           (lambda ()
             (set (make-local-variable 'compile-command)
                  (concat "python " "'" buffer-file-name "'"))))
