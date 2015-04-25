@@ -39,6 +39,10 @@
 (prelude-require-package 'emmet-mode)
 (prelude-require-package 'tern)
 (prelude-require-package 'editorconfig)
+(prelude-require-package 'yasnippet)
+(yas-global-mode)
+(add-to-list 'yas/root-directory
+             "~/.emacs.d/personal/yasnippets")
 ;; Python code completion backend
 (prelude-require-package 'anaconda-mode)
 (prelude-require-package 'company-anaconda)
