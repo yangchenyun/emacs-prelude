@@ -44,6 +44,8 @@
       (list "~/.emacs.d/personal/yasnippets" 'yas-installed-snippets-dir))
 (yas-global-mode)
 (yas-reload-all)
+(prelude-require-package 'programmer-dvorak)
+(require 'programmer-dvorak)
 ;; Python code completion backend
 (prelude-require-package 'anaconda-mode)
 (prelude-require-package 'company-anaconda)
