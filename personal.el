@@ -40,8 +40,7 @@
 (prelude-require-package 'tern)
 (prelude-require-package 'editorconfig)
 (prelude-require-package 'yasnippet)
-(setq yas/root-directory
-      (list "~/.emacs.d/personal/yasnippets" 'yas-installed-snippets-dir))
+(setq yas/root-directory (list "~/.emacs.d/personal/yasnippets"))
 (yas-global-mode)
 (yas-reload-all)
 (prelude-require-package 'programmer-dvorak)
@@ -132,7 +131,7 @@
 
 ; be quiet
 (setq ring-bell-function 'ignore)
-
+(scroll-bar-mode -1)
 (prelude-swap-meta-and-super)
 
 ;; mac friendly font
