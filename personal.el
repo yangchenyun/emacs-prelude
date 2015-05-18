@@ -35,7 +35,9 @@
 (require 'prelude-yaml)
 
 ;; convert between under_score and CamelCase
+(prelude-require-package 'js-doc)
 (prelude-require-package 'string-inflection)
+(require 'string-inflection)
 (prelude-require-package 'emmet-mode)
 (prelude-require-package 'tern)
 (prelude-require-package 'editorconfig)
@@ -71,9 +73,6 @@
 (setq keyfreq-file-lock (expand-file-name "keyfreq-lock" prelude-savefile-dir))
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
-
-(prelude-require-package 'osx-dictionary)
-(global-set-key (kbd "C-c d") 'osx-dictionary-search-pointer)
 
 (setq find-function-C-source-directory "~/vendor/emacs/src")
 
@@ -132,7 +131,12 @@
 ; be quiet
 (setq ring-bell-function 'ignore)
 (scroll-bar-mode -1)
-(prelude-swap-meta-and-super)
+
+(when (eq system-type 'darwin)
+  (prelude-require-package 'osx-dictionary)
+  (global-set-key (kbd "C-c d") 'osx-dictionary-search-pointer)
+  (prelude-swap-meta-and-super))
+
 
 ;; mac friendly font
 (setq ns-use-srgb-colorspace t)
