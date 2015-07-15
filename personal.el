@@ -35,9 +35,13 @@
 (require 'prelude-yaml)
 
 ;; convert between under_score and CamelCase
-(prelude-require-package 'js-doc)
 (prelude-require-package 'string-inflection)
 (require 'string-inflection)
+
+(add-to-list 'recentf-exclude "/tmp/buildifier.*")
+
+(prelude-require-package 'prodigy)
+(prelude-require-package 'js-doc)
 (prelude-require-package 'emmet-mode)
 (prelude-require-package 'tern)
 (prelude-require-package 'editorconfig)
