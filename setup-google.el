@@ -53,6 +53,7 @@
           ;; MPM package definition files are Python syntax.
           (cons "/pkgdef$" 'python-mode)
           (cons "/BUILD$" 'google3-build-mode)
+          (cons "/build_defs$" 'google3-build-mode)
           (cons "\\.proto$" 'protobuf-mode)
           (cons "\\.protodevel$" 'protobuf-mode)
           (cons "\\.ncl$" 'ncl-mode)

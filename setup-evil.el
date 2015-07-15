@@ -247,6 +247,7 @@
                                  (gtags-browse-tags-mode       . emacs)
                                  (finder-mode                  . emacs)
                                  (project-explorer-mode        . motion)
+                                 (prodigy-mode                 . motion)
                                  (ibuffer-mode                 . normal)
                                  (org-agenda-mode              . motion)
                                  (erc-mode                     . normal))
