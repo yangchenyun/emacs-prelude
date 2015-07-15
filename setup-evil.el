@@ -269,6 +269,13 @@
                                      "magit-.*-mode"
 ))
 
+;; TODO: redefine browse keybindings in man-mode & woman-mode to make
+;; it work with evil
+(eval-after-load 'woman-mode
+  '(progn
+     (defvar woman-mode-map)
+     (evil-make-overriding-map woman-mode-map 'motion)))
+
 (eval-after-load 'org-agenda
   '(progn
      ;; use the standard Dired bindings as a base

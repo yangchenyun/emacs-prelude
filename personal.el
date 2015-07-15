@@ -101,6 +101,9 @@
 
 (prelude-require-package 'e2wm)
 
+(setq speedbar-use-images nil)
+(global-set-key "\M-`" 'speedbar-get-focus)
+
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
