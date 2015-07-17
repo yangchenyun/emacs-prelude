@@ -348,6 +348,12 @@ this with to-do items than with projects or headings."
    (define-key org-agenda-mode-map "X" 'sacha/org-agenda-mark-done-and-add-followup)
    (define-key org-agenda-mode-map "N" 'sacha/org-agenda-new)))
 
+(defun guide-key/org-mode ()
+  (guide-key/add-local-guide-key-sequence "C-c")
+  (guide-key/add-local-guide-key-sequence "C-c C-x")
+  (guide-key/add-local-highlight-command-regexp "org-"))
+(add-hook 'org-mode-hook 'guide-key/org-mode)
+
 (org-add-hook
  'org-mode-hook
  '(lambda ()

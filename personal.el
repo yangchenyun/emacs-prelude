@@ -33,6 +33,13 @@
 (require 'prelude-xml)
 (require 'prelude-yaml)
 
+(prelude-require-package 'guide-key)
+(require 'guide-key)
+(setq guide-key/guide-key-sequence '("C-h"))
+(setq guide-key/recursive-key-sequence-flag t)
+(setq guide-key/idle-delay 0.5)
+
+(guide-key-mode 1)  ; Enable guide-key-mode
 
 (prelude-require-package 'hydra)
 (require 'hydra)
