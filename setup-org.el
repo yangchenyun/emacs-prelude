@@ -8,6 +8,12 @@
   (funcall fun)
   (evil-append nil))
 
+(define-key org-mode-map "<"
+  (lambda () (interactive)
+     (if (looking-back "^")
+         (hydra-org-template/body)
+       (self-insert-command 1))))
+
 ;; normal state shortcuts
 (evil-define-key 'normal org-mode-map
   "gu" 'outline-up-heading
@@ -49,12 +55,7 @@
 
   "^" 'org-sort
   ;; clock related keymaps
-  "ci" 'org-clock-in
-  "cl" 'org-clock-in-last
-  "co" 'org-clock-out
-  "cq" 'org-clock-cancel
-  "cd" 'org-clock-display
-  "cr" 'org-clock-report
+  "c"  'hydra-org-clock/body
 
   "e" 'org-set-effort
   "a" 'org-archive-subtree-default

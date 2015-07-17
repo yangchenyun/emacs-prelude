@@ -6,6 +6,7 @@
 ;; here is some resources it refers to
 ;; https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-evil.el
 
+;;; Code:
 (require 'yangchenyun-util)
 (prelude-require-package 'undo-tree)
 (prelude-require-package 'evil-leader)
@@ -24,6 +25,10 @@
 (setq evil-leader/leader ",")
 (setq evil-want-C-w-in-emacs-state t)
 
+(define-key evil-motion-state-map "\C-w" 'hydra-window/body)
+(when evil-want-C-w-in-emacs-state
+  (define-key evil-emacs-state-map "\C-w" 'hydra-window/body))
+
 (setq evil-search-module 'evil-search)
 
 (global-evil-leader-mode)
@@ -32,8 +37,7 @@
   "Set the hotkeys of evil-nerd-comment"
   (interactive)
   (global-set-key (kbd "M-/") 'evilnc-comment-or-uncomment-lines)
-  (global-set-key (kbd "C-c p") 'evilnc-comment-or-uncomment-paragraphs)
-)
+  (global-set-key (kbd "C-c p") 'evilnc-comment-or-uncomment-paragraphs))
 (evilnc-default-hotkeys)
 
 ;; FIXME a little overlap with powerline evil configuration
@@ -135,7 +139,6 @@
              "H"     'beginning-of-line
              "L"     'end-of-line
              "M-p"   'helm-projectile
-             "M-P"   'projectile-ag
              "M-."   'find-tag
 
              ;; smartparens
@@ -204,7 +207,7 @@
   "s" 'helm-occur
   "S" 'eshell
   "." 'smex
-  "p" 'projectile-switch-project
+  "p" 'hydra-project/body
 
   ;; nerd commenter
   "ci" 'evilnc-comment-or-uncomment-lines

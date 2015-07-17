@@ -1,4 +1,3 @@
-;; Emacs IRC client
 (require 'prelude-erc)
 (require 'prelude-ido) ;; Super charges Emacs completion for C-x C-f and more
 (require 'prelude-helm) ;; Interface for narrowing and search
@@ -33,6 +32,11 @@
 (require 'prelude-web) ;; Emacs mode for web templates
 (require 'prelude-xml)
 (require 'prelude-yaml)
+
+
+(prelude-require-package 'hydra)
+(require 'hydra)
+(require 'setup-hydra)
 
 ;; convert between under_score and CamelCase
 (prelude-require-package 'string-inflection)
