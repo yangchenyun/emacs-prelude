@@ -71,6 +71,11 @@
 
 (prelude-require-package 'ido-vertical-mode)
 (ido-vertical-mode 1)
+(add-hook
+ 'ido-setup-hook
+ (lambda ()
+   (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
+   (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)))
 
 (setq projectile-switch-project-action 'projectile-dired)
 (prelude-require-package 'ag)
