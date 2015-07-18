@@ -182,5 +182,64 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
         ("X"   fixmee-mode)
         ("x"   fixmee-view-listing))
 
+
+(defun ora-open-info (topic bname)
+  "Open info on TOPIC in BNAME."
+  (if (get-buffer bname)
+      (progn
+        (switch-to-buffer bname)
+        (unless (string-match topic Info-current-file)
+          (Info-goto-node (format "(%s)" topic))))
+    (info topic bname)))
+
+(defhydra hydra-info-to (:hint nil :color teal)
+  "
+_o_rg e_l_isp _e_macs _h_yperspec"
+  ("o" (ora-open-info "org" "*org info*"))
+  ("l" (ora-open-info "elisp" "*elisp info*"))
+  ("e" (ora-open-info "emacs" "*emacs info*"))
+  ("h" (ora-open-info "gcl" "*hyperspec*")))
+
+(defhydra hydra-info (:color blue :hint nil :idle 0.4)
+        "
+                                                                  ╭────────────┐
+    Nav Files             Navi Nodes          Action              │ Info-mode  │
+  ╭───────────────────────────────────────────────────────────────┴────────────╯
+    [_?_] summary       [_[_] forward          [_g_] goto node
+    [_<_] top node      [_]_] backward         [_s_] search
+    [_>_] final node    [_f_] follow ref       [_S_] case-search
+    [_d_] info dir      [_l_] hist back        [_m_] menu
+    [_i_] index         [_r_] hist forward     [_h_] help
+    [_I_] virtual index [_n_] next             [_t_] info-to
+    [_L_] hist          [_p_] previous
+    [_T_] TOC           [_u_] up
+        "
+        ("?" Info-summary)
+        ("]" Info-forward-node)
+        ("[" Info-backward-node)
+        ("<" Info-top-node)
+        (">" Info-final-node)
+        ;; ("b" beginning-of-buffer)
+        ;; ("e" end-of-buffer)
+        ("h" Info-help)
+        ("d" Info-directory)
+        ("f" Info-follow-reference)
+        ("g" Info-goto-node)
+        ("l" Info-history-back)
+        ("r" Info-history-forward)
+        ("i" Info-index)
+        ("I" Info-virtual-index)
+        ("L" Info-history)
+        ("n" Info-next)
+        ("p" Info-prev)
+        ("s" Info-search)
+        ("S" Info-search-case-sensitively)
+        ("T" Info-toc)
+        ("u" Info-up)
+        ("m" Info-menu)
+        ("t" hydra-info-to/body))
+
+(define-key Info-mode-map "." 'hydra-info/body)
+
 (provide 'setup-hydra)
 ;;; setup-hydra.el ends here.
