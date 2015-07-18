@@ -2,7 +2,7 @@
 
 ;;; Commentary:
 
-;; This file configures the behavior of evil in emacs
+;; This file configures the behavior of evil in Emacs
 ;; here is some resources it refers to
 ;; https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-evil.el
 
