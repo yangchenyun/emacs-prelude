@@ -29,8 +29,8 @@ Clock   In/out^     ^Edit^   ^Summary     (_?_)
 (defhydra hydra-window (:color orange
                         :hint nil)
   "
- Split: _v_ertical _s_:plit
-Delete: _o_nly  _da_ce  _dw_indow  _db_uffer  _df_rame
+ Split: _s_:split _H_:oriaontal _V_:vertical
+Delete: _o_nly  _da_ce  _x_window  _db_uffer  _df_rame
   Move: _S_wap
 Frames: _f_rame new  _df_ delete
   Misc: _m_ark _a_ce  _u_ndo  _r_edo"
@@ -49,8 +49,9 @@ Frames: _f_rame new  _df_ delete
          (interactive)
          (split-window-below)
          (windmove-down)))
-  ("v" split-window-right)
-  ("s" split-window-below)
+  ("s" cofi/smart-split)
+  ("V" split-window-vertically)
+  ("H" split-window-horizontally)
   ;("t" transpose-frame "'")
   ;; winner-mode must be enabled
   ("u" winner-undo)
@@ -60,7 +61,7 @@ Frames: _f_rame new  _df_ delete
   ("f" new-frame :exit t)
   ("S" ace-swap-window)
   ("da" ace-delete-window)
-  ("dw" delete-window)
+  ("x" delete-window)
   ("db" kill-this-buffer)
   ("df" delete-frame :exit t)
   ("q" nil)
