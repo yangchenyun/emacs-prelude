@@ -7,6 +7,9 @@
 
 ;;; Code:
 (unless (not (file-exists-p "/google"))
+  ;; Add gmacs's site-lisp load-path
+  ;; NOTE: in order to use ELPA's version of third_party packages, 
+  ;;   some packages are commented out in the google.el loaded below
   (setq ami-emacs-version
         (concat "gmacs-" (replace-regexp-in-string "\\.[0-9]+$" ""
                                                    emacs-version)))
