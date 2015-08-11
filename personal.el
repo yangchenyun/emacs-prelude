@@ -264,6 +264,18 @@ The `car' of each item is the font family, the `cdr' the preferred font size.")
             (set (make-local-variable 'compile-command)
                  (concat "python " "'" buffer-file-name "'"))))
 
+(add-hook 'prelude-go-mode-hook
+          (lambda ()
+            ;; Call Gofmt before saving
+            (add-hook 'before-save-hook 'gofmt-before-save)
+            ;; Customize compile command to run go build
+            (if (not (string-match "go" compile-command))
+                (set (make-local-variable 'compile-command)
+                     "go generate && go build -v && go test -v && go vet"))
+            ;; godef jump
+            (local-set-key (kbd "M-.") 'godef-jump)))
+
+
 ;; load google-configuration
 (require 'setup-google)
 
