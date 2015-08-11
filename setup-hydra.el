@@ -241,5 +241,38 @@ _o_rg e_l_isp _e_macs _h_yperspec"
 
 (define-key Info-mode-map "." 'hydra-info/body)
 
+(defhydra hydra-org-trello (:color blue :hint nil :idle 0.4)
+        "
+                                                                  ╭────────────┐
+    Cards               Boards                 Sync               │ Org-Trello │
+  ╭───────────────────────────────────────────────────────────────┴────────────╯
+    [_a_] archive       [_l_] show labels      [_s_] push card
+    [_j_] jump to card  [_J_] jump to board    [_b_] push buffer
+    [_m_] comment       [_I_] install board    [_c_] push comment
+    [_k_] delete card   [_U_] update board
+    [_@_] assign me     [_C_] create board
+        "
+
+        ("a" org-trello/archive-card)
+        ("j" org-trello/jump-to-trello-card)
+        ("k" org-trello/kill-entity)
+        ("@" org-trello/assign-me)
+        ("m" org-trello/add-card-comment)
+
+        ("l" org-trello/show-board-labels)
+        ("J" org-trello/jump-to-trello-board)
+        ("I" org-trello/install-board-metadata)
+        ("U" org-trello/update-board-metadata)
+        ("C" org-trello/create-board-and-install-metadata)
+
+        ;; ("S" org-trello/sync-card) needs to do trello->card sync
+        ("s" org-trello/sync-card)
+        ("b" org-trello/sync-buffer)
+        ("c" org-trello/sync-comment)
+
+        ;; not listed in the menu
+        ("K" org-trello/kill-cards)
+        ("A" org-trello/archive-cards))
+
 (provide 'setup-hydra)
 ;;; setup-hydra.el ends here.

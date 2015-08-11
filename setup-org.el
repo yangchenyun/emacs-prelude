@@ -2,6 +2,15 @@
 ;; Register a org-protocol:// scheme onto the system
 ;; http://jcardente.blogspot.com/2010/09/saving-weblinks-to-org-mode-from-safari.html
 
+;; org-trello setup
+(prelude-require-package 'org-trello)
+(add-to-list 'auto-mode-alist '("\\.trello$" . org-mode))
+(add-hook 'org-mode-hook
+          (lambda ()
+            (let ((filename (buffer-file-name (current-buffer))))
+              (when (and filename (string= "trello" (file-name-extension filename)))
+              (org-trello-mode)))))
+
 (defun evil-org-eol-call (fun)
   "Go to end of line and call provided function"
   (end-of-line)
@@ -56,6 +65,7 @@
   "^" 'org-sort
   ;; clock related keymaps
   "c"  'hydra-org-clock/body
+  "t"  'hydra-org-trello/body
 
   "e" 'org-set-effort
   "a" 'org-archive-subtree-default
