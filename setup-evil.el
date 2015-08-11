@@ -11,10 +11,7 @@
 (prelude-require-package 'undo-tree)
 (prelude-require-package 'evil-leader)
 (prelude-require-package 'evil-nerd-commenter)
-(prelude-require-package 'evil)
-(prelude-require-package 'evil-surround)
 (prelude-require-package 'undo-tree)
-(prelude-require-package 'evil-numbers)
 (require 'evil-rails)
 
 (setq evil-find-skip-newlines t)
