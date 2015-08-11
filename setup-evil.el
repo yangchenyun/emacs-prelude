@@ -304,6 +304,10 @@
      (evil-make-overriding-map elisp-slime-nav-mode-map 'normal)
      (evil-add-hjkl-bindings elisp-slime-nav-mode-map 'normal)))
 
+(eval-after-load 'go-mode
+  '(progn
+     (evil-define-key 'normal go-mode-map [(meta ?.)] 'godef-jump)))
+
 (eval-after-load 'smartparens
   '(progn
      (evil-define-key 'insert smartparens-mode-map [(shift return)] 'sp-newline)))
