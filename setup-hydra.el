@@ -249,8 +249,9 @@ _o_rg e_l_isp _e_macs _h_yperspec"
     [_a_] archive       [_l_] show labels      [_s_] push card
     [_j_] jump to card  [_J_] jump to board    [_b_] push buffer
     [_m_] comment       [_I_] install board    [_c_] push comment
-    [_k_] delete card   [_U_] update board
-    [_@_] assign me     [_C_] create board
+    [_k_] delete card   [_U_] update board     [_S_] pull card
+    [_@_] assign me     [_C_] create board     [_B_] pull buffer
+                                               [_C_] pull comment
         "
 
         ("a" org-trello/archive-card)
@@ -269,6 +270,9 @@ _o_rg e_l_isp _e_macs _h_yperspec"
         ("s" org-trello/sync-card)
         ("b" org-trello/sync-buffer)
         ("c" org-trello/sync-comment)
+        ("S" (org-trello/sync-card 4))
+        ("B" (org-trello/sync-buffer 4))
+        ("C" (org-trello/sync-comment 4))
 
         ;; not listed in the menu
         ("K" org-trello/kill-cards)
