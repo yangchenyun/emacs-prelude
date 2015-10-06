@@ -95,7 +95,7 @@
           ))
       '(normal insert))
 
-(defvar org-dir "~/Google Drive/.org")
+(defvar org-dir "~/Dropbox/.org")
 (setq org-directory (expand-file-name org-dir)
       org-agenda-files (list (concat org-dir "/plans.org")
                              (concat org-dir "/work.org")
