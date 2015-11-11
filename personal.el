@@ -45,6 +45,9 @@
 (require 'hydra)
 (require 'setup-hydra)
 
+(require 'nasm-mode)
+(add-to-list 'auto-mode-alist '("\\.\\(nasm\\|s\\)$" . nasm-mode))
+
 ;; convert between under_score and CamelCase
 (prelude-require-package 'string-inflection)
 (require 'string-inflection)
