@@ -61,8 +61,8 @@
 (prelude-require-package 'editorconfig)
 (prelude-require-package 'yasnippet)
 (setq yas/root-directory (list "~/.emacs.d/personal/yasnippets"))
-(yas-global-mode)
-(yas-reload-all)
+;; (yas-global-mode)
+;; (yas-reload-all)
 (prelude-require-package 'programmer-dvorak)
 (require 'programmer-dvorak)
 
