@@ -62,9 +62,12 @@
 (yas-reload-all)
 (prelude-require-package 'programmer-dvorak)
 (require 'programmer-dvorak)
-;; Python code completion backend
-(prelude-require-package 'anaconda-mode)
-(prelude-require-package 'company-anaconda)
+;; ycmd configuration
+(prelude-require-package 'ycmd)
+(require 'ycmd)
+(add-hook 'after-init-hook #'global-ycmd-mode)
+(set-variable 'ycmd-server-command
+              (list "python" (expand-file-name "~/.ghq/github.com/Valloric/ycmd/ycmd")))
 
 ;; http documentation
 (prelude-require-package 'know-your-http-well)
