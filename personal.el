@@ -143,10 +143,31 @@
 (setq speedbar-use-images nil)
 (global-set-key "\M-`" 'speedbar-get-focus)
 
+;;; web-mode setup
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
-(setq web-mode-engines-alist  '(("underscorejs"    . "\\.ejs\\'")))
+
+;; Enable JavaScript completion between <script>...</script> etc.
+(defadvice company-tern (before web-mode-set-up-ac-sources activate)
+  "Set `tern-mode' based on current language before running company-tern."
+  (if (equal major-mode 'web-mode)
+      (let ((web-mode-cur-language
+             (web-mode-language-at-pos)))
+        (if (or (string= web-mode-cur-language "javascript")
+                (string= web-mode-cur-language "jsx"))
+            (unless tern-mode (tern-mode))
+          (if tern-mode (tern-mode -1))))))
+(defun custom-web-mode-hook ()
+  "Hooks for web mode."
+  (whitespace-mode -1)  ; disable whitespace-mode
+  (emmet-mode) ; enable emmet-mode for web-mode
+  (setq web-mode-engines-alist  '(("underscorejs"    . "\\.ejs\\'")))
+  (setq web-mode-markup-indent-offset 2)  ; html indent
+  (setq web-mode-css-indent-offset 2)  ; css indent
+  (setq web-mode-code-indent-offset 2)  ; script / code indent
+  )
+(add-hook 'prelude-web-mode-hook 'custom-web-mode-hook)
 
 ;; follow Steve Yegge's suggestion
 (global-set-key (kbd "C-c C-m") 'smex)
