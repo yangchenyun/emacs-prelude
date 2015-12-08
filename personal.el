@@ -82,6 +82,9 @@
 (set-variable 'ycmd-server-command
               (list "python" (expand-file-name "~/.ghq/github.com/Valloric/ycmd/ycmd")))
 
+(prelude-require-package 'virtualenvwrapper)
+(require 'virtualenvwrapper)
+
 ;; http documentation
 (prelude-require-package 'know-your-http-well)
 
