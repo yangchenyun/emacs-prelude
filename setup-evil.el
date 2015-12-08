@@ -136,7 +136,10 @@
              "H"     'beginning-of-line
              "L"     'end-of-line
              "M-p"   'helm-projectile
-             "M-."   'find-tag
+
+             "M-."   'ycmd-goto-definition
+             "M-?"   'ycmd-show-documentation
+             "M-,"   'pop-tag-mark
 
              ;; smartparens
 

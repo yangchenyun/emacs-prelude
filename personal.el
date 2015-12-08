@@ -45,6 +45,9 @@
 (require 'hydra)
 (require 'setup-hydra)
 
+(require 'nasm-mode)
+(add-to-list 'auto-mode-alist '("\\.\\(nasm\\|s\\)$" . nasm-mode))
+
 ;; convert between under_score and CamelCase
 (prelude-require-package 'string-inflection)
 (require 'string-inflection)
@@ -58,13 +61,21 @@
 (prelude-require-package 'editorconfig)
 (prelude-require-package 'yasnippet)
 (setq yas/root-directory (list "~/.emacs.d/personal/yasnippets"))
-(yas-global-mode)
-(yas-reload-all)
+;; (yas-global-mode)
+;; (yas-reload-all)
 (prelude-require-package 'programmer-dvorak)
 (require 'programmer-dvorak)
-;; Python code completion backend
-(prelude-require-package 'anaconda-mode)
-(prelude-require-package 'company-anaconda)
+
+(setq whitespace-global-modes '(not org-mode))
+
+(setq tab-width 4)
+
+;; ycmd configuration
+(prelude-require-package 'ycmd)
+(require 'ycmd)
+(add-hook 'after-init-hook #'global-ycmd-mode)
+(set-variable 'ycmd-server-command
+              (list "python" (expand-file-name "~/.ghq/github.com/Valloric/ycmd/ycmd")))
 
 ;; http documentation
 (prelude-require-package 'know-your-http-well)
@@ -142,7 +153,7 @@
 (unless window-system
   (xterm-mouse-mode 1)
   (menu-bar-mode 1)
-  (setq x-select-enable-clipboard t
+  (setq select-enable-clipboard t
         interprogram-paste-function 'x-cut-buffer-or-selection-value)
   (global-set-key [mouse-4] '(lambda ()
                                (interactive)
@@ -166,21 +177,22 @@
 
 (defconst preferred-monospace-fonts
   `(
+    ("Monaco For Powerline" . ,(if (eq system-type 'darwin) 115 100))
+    ("Menlo" . 120)
+    ("Hack" . 110)
     ("DejaVu Sans Mono" . 105)
     ("Source Code Pro" . ,(if (eq system-type 'darwin) 130 100))
     ("Anonymous Pro" . ,(if (eq system-type 'darwin) 135 110))
     ("Anonymous Pro Minus" . ,(if (eq system-type 'darwin) 135 110))
-    ("Monaco For Powerline" . ,(if (eq system-type 'darwin) 130 100))
-    ("Menlo" . 120)
     ("Consolas" . 130)
     ("Courier New" . 130))
-  "Preferred monospace fonts
+  "Preferred monospace fonts.
 The `car' of each item is the font family, the `cdr' the preferred font size.")
 
 (defconst preferred-proportional-fonts
   '(("Lucida Grande" . 120)
     ("DejaVu Sans" . 110))
-  "Preferred proportional fonts
+  "Preferred proportional fonts.
 The `car' of each item is the font family, the `cdr' the preferred font size.")
 
 (defun first-existing-font (fonts)
@@ -189,7 +201,7 @@ The `car' of each item is the font family, the `cdr' the preferred font size.")
 
 (setq current-monospace-font preferred-monospace-fonts)
 (defun cycle-fonts ()
-  "Cycle through the monospace fonts"
+  "Cycle through the monospace fonts."
   (interactive)
   (if (null current-monospace-font)
       (setq current-monospace-font preferred-monospace-fonts)
