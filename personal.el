@@ -38,8 +38,13 @@
 (setq guide-key/guide-key-sequence '("C-h"))
 (setq guide-key/recursive-key-sequence-flag t)
 (setq guide-key/idle-delay 0.5)
-
 (guide-key-mode 1)  ; Enable guide-key-mode
+
+
+(prelude-require-packages '(company-web company-tern))
+(require 'company-web-html)
+(require 'company-tern)
+
 
 (prelude-require-package 'hydra)
 (require 'hydra)
