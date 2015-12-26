@@ -316,6 +316,8 @@ The `car' of each item is the font family, the `cdr' the preferred font size.")
             ;; godef jump
             (local-set-key (kbd "M-.") 'godef-jump)))
 
+;; load pomello script
+(require 'pomello-org)
 
 ;; load google-configuration
 (require 'setup-google)
