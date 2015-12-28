@@ -99,6 +99,7 @@
 (setq org-directory (expand-file-name org-dir)
       org-agenda-files (list (concat org-dir "/plans.org")
                              (concat org-dir "/work.org")
+                             (concat org-dir "/work.trello")
                              (concat org-dir "/meetings.org")
                              (concat org-dir "/expr/newformat.org")
                              (concat org-dir "/inbox.org"))
@@ -378,8 +379,9 @@ this with to-do items than with projects or headings."
 
 (setq org-src-fontify-natively t)
 
-;; disable longline highlighting
-;; (add-hook 'org-mode-hook #'stante-whitespace-style-no-long-lines)
+;; Disable whitespace-mode highlighting
+(add-hook 'org-mode-hook
+          (lambda () (whitespace-mode -1)))
 
 (org-babel-do-load-languages
  'org-babel-load-languages
