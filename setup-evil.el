@@ -160,7 +160,9 @@
              "gk" 'sp-kill-sexp
              "gu" 'sp-raise-sexp
              "gy" 'sp-copy-sexp
-             )
+
+             ;; ispell shortcuts
+             "gs" 'ispell-word)
 
 (fill-keymap evil-motion-state-map
              "y"     'evil-yank
