@@ -109,6 +109,7 @@
       org-enforce-todo-dependencies t
       org-clock-into-drawer t
       org-M-RET-may-split-line nil
+      org-pretty-entities t
       org-refile-targets '((org-agenda-files :maxlevel . 4))
       org-archive-default-command 'org-archive-subtree-default-with-confirmation
       org-clock-persist 'history
@@ -371,6 +372,24 @@ this with to-do items than with projects or headings."
     (org-indent-mode)
     (org-clock-persistence-insinuate)
     (add-to-list 'org-modules "org-habit")))
+
+;;; For latex support in org-mode
+(prelude-require-package 'cdlatex)
+(require 'texmathp)
+(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
+
+;;; Patch to make Latex and Biber work for org-mode
+(setq org-latex-pdf-process (list "latexmk -f -pdf %f"))
+
+;; 1. hook flyspell into org-mode
+(add-hook 'org-mode-hook 'flyspell-mode)
+(add-hook 'org-mode-hook 'flyspell-buffer)
+
+;; 2. ignore message flags
+(setq flyspell-issue-message-flag nil)
+
+;; 3. ignore tex commands
+(add-hook 'org-mode-hook (lambda () (setq ispell-parser 'tex)))
 
 (org-babel-do-load-languages
  'org-babel-load-languages
