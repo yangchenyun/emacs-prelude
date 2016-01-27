@@ -52,9 +52,9 @@
   "w" 'widen
 
   ;; awesome plan
-  "y" 'org-awesome-plan/total-hours-for-year
-  "m" 'org-awesome-plan/total-hours-for-month
-  "w" 'org-awesome-plan/total-hours-for-week
+  "Y" 'org-awesome-plan/total-hours-for-year
+  "M" 'org-awesome-plan/total-hours-for-month
+  "W" 'org-awesome-plan/total-hours-for-week
   "Py" 'org-awesome-plan/create-or-update-year-plan-property
   "Pm" 'org-awesome-plan/create-or-update-month-plan-property
   "Pw" 'org-awesome-plan/create-or-update-week-plan-property
