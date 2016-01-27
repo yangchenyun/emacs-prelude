@@ -82,6 +82,13 @@ YEAR."
   (org-awesome-plan/logged-hours-for-period
    (butlast (org-clock-special-range 'thisyear))))
 
+(defun org-awesome-plan/logged-hours-until-now ()
+  "Calculate the sum of logged hours for current subtree in the
+YEAR."
+  (interactive)
+  (org-awesome-plan/logged-hours-for-period
+   (butlast (org-clock-special-range 'untilnow))))
+
 (defun org-awesome-plan/logged-hours-for-period (range)
   "Calculate the sum of logged hours for current subtree in the
 RANGE of time."
