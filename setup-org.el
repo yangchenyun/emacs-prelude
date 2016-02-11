@@ -391,10 +391,20 @@ this with to-do items than with projects or headings."
 ;; 3. ignore tex commands
 (add-hook 'org-mode-hook (lambda () (setq ispell-parser 'tex)))
 
+;; TODO(steveyang): only when using latex and make it asynchronous
+;; (add-hook 'after-save-hook
+;;           (lambda () (when (and
+;;                        (eq major-mode 'org-mode)
+;;                        t
+;;                   (org-latex-export-to-pdf))))
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)
    (emacs-lisp . t)))
+
+;; Allow multiple line emphasis, see http://goo.gl/kSk18e
+(setcar (nthcdr 4 org-emphasis-regexp-components) 10)
 
 (setq org-src-fontify-natively t)
 
