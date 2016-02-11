@@ -52,9 +52,9 @@
   "w" 'widen
 
   ;; awesome plan
-  "y" 'org-awesome-plan/total-hours-for-year
-  "m" 'org-awesome-plan/total-hours-for-month
-  "w" 'org-awesome-plan/total-hours-for-week
+  "Y" 'org-awesome-plan/total-hours-for-year
+  "M" 'org-awesome-plan/total-hours-for-month
+  "W" 'org-awesome-plan/total-hours-for-week
   "Py" 'org-awesome-plan/create-or-update-year-plan-property
   "Pm" 'org-awesome-plan/create-or-update-month-plan-property
   "Pw" 'org-awesome-plan/create-or-update-week-plan-property
@@ -99,6 +99,7 @@
 (setq org-directory (expand-file-name org-dir)
       org-agenda-files (list (concat org-dir "/plans.org")
                              (concat org-dir "/work.org")
+                             (concat org-dir "/work.trello")
                              (concat org-dir "/meetings.org")
                              (concat org-dir "/expr/newformat.org")
                              (concat org-dir "/inbox.org"))
@@ -108,6 +109,7 @@
       org-enforce-todo-dependencies t
       org-clock-into-drawer t
       org-M-RET-may-split-line nil
+      org-pretty-entities t
       org-refile-targets '((org-agenda-files :maxlevel . 4))
       org-archive-default-command 'org-archive-subtree-default-with-confirmation
       org-clock-persist 'history
@@ -371,15 +373,44 @@ this with to-do items than with projects or headings."
     (org-clock-persistence-insinuate)
     (add-to-list 'org-modules "org-habit")))
 
+;;; For latex support in org-mode
+(prelude-require-package 'cdlatex)
+(require 'texmathp)
+(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
+
+;;; Patch to make Latex and Biber work for org-mode
+(setq org-latex-pdf-process (list "latexmk -f -pdf %f"))
+
+;; 1. hook flyspell into org-mode
+(add-hook 'org-mode-hook 'flyspell-mode)
+(add-hook 'org-mode-hook 'flyspell-buffer)
+
+;; 2. ignore message flags
+(setq flyspell-issue-message-flag nil)
+
+;; 3. ignore tex commands
+(add-hook 'org-mode-hook (lambda () (setq ispell-parser 'tex)))
+
+;; TODO(steveyang): only when using latex and make it asynchronous
+;; (add-hook 'after-save-hook
+;;           (lambda () (when (and
+;;                        (eq major-mode 'org-mode)
+;;                        t
+;;                   (org-latex-export-to-pdf))))
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)
    (emacs-lisp . t)))
 
+;; Allow multiple line emphasis, see http://goo.gl/kSk18e
+(setcar (nthcdr 4 org-emphasis-regexp-components) 10)
+
 (setq org-src-fontify-natively t)
 
-;; disable longline highlighting
-;; (add-hook 'org-mode-hook #'stante-whitespace-style-no-long-lines)
+;; Disable whitespace-mode highlighting
+(add-hook 'org-mode-hook
+          (lambda () (whitespace-mode -1)))
 
 (org-babel-do-load-languages
  'org-babel-load-languages

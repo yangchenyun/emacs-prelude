@@ -2,7 +2,9 @@
 
 ;;; Commentary:
 
-;; This file contains the code to implement awesome plan system developed by myself back into 2010. It contains periodical plans and related views.
+;; This file contains the code to implement awesome plan system
+;; developed by myself back into 2010. It contains periodical plans
+;; and related views.
 
 ;; Related models:
 ;; Category: id, no property, act as a label holder
@@ -10,7 +12,9 @@
 ;; Project: same as goal, for temporary project
 ;; Action: a normal TODO item, logging time on
 
-;; Plan has a covering period and available hours, in plain English, I plan to "spend * hours in this period"; currently available period includes yearly / monthly / weekly plan.
+;; Plan has a covering period and available hours, in plain English, I
+;; plan to "spend * hours in this period"; currently available period
+;; includes yearly / monthly / weekly plan.
 
 ;;; Code:
 ;; 1. [done] logged time (needs to compute time range though)
@@ -22,9 +26,14 @@
 ;; How much effort I could plan for March?
 ;;   minus commited hours / minus previous planned hours
 
-;; TODO: restriction on category/goal ids. when they are created, they should automatically fetch from the top level properties and update them accordingly; category ids must be unique / goal ids must be unique within one category.
+;; TODO: restriction on category/goal ids. when they are created, they
+;; should automatically fetch from the top level properties and update
+;; them accordingly; category ids must be unique / goal ids must be
+;; unique within one category.
 
 ;; TODO: monthly and weekly plan should be nested into the yearly plan
+
+;; TODO: Investigate `org-clock-get-table-data' / `org-clock-sum' / `org-element'
 
 (require 'dash)
 
@@ -72,6 +81,13 @@ YEAR."
   (interactive)
   (org-awesome-plan/logged-hours-for-period
    (butlast (org-clock-special-range 'thisyear))))
+
+(defun org-awesome-plan/logged-hours-until-now ()
+  "Calculate the sum of logged hours for current subtree in the
+YEAR."
+  (interactive)
+  (org-awesome-plan/logged-hours-for-period
+   (butlast (org-clock-special-range 'untilnow))))
 
 (defun org-awesome-plan/logged-hours-for-period (range)
   "Calculate the sum of logged hours for current subtree in the

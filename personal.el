@@ -18,7 +18,7 @@
 ;; (require 'prelude-go)
 ;; (require 'prelude-haskell)
 (require 'prelude-js)
-;; (require 'prelude-latex)
+(require 'prelude-latex)
 (require 'prelude-lisp)
 ;; (require 'prelude-ocaml)
 (require 'prelude-org) ;; Org-mode helps you keep TODO lists, notes and more
@@ -40,6 +40,29 @@
 (setq guide-key/idle-delay 0.5)
 (guide-key-mode 1)  ; Enable guide-key-mode
 
+;; AucTeX,
+;; http://www.stefanom.org/setting-up-a-nice-auctex-environment-on-mac-os-x/
+(prelude-require-package 'auctex)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(setq reftex-plug-into-AUCTeX t)
+
+;; Use Skim as viewer, enable source <-> PDF sync
+;; make latexmk available via C-c C-c
+;; Note: SyncTeX is setup via ~/.latexmkrc (see below)
+(add-hook 'LaTeX-mode-hook (lambda ()
+  (push
+    '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
+      :help "Run latexmk on file")
+    TeX-command-list)))
+(add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
+
+;; use Skim as default pdf viewer
+;; Skim's displayline is used for forward search (from .tex to .pdf)
+;; option -b highlights the current line; option -g opens Skim in the background
+(setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
+(setq TeX-view-program-list
+      '(("PDF Viewer"
+         "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
 
 (prelude-require-packages '(company-web company-tern))
 (require 'company-web-html)
@@ -171,6 +194,14 @@
   (setq web-mode-code-indent-offset 2)  ; script / code indent
   )
 (add-hook 'prelude-web-mode-hook 'custom-web-mode-hook)
+
+(defun text-mode-hook-setup ()
+  ;; make `company-backends' local in text-mode only
+  (make-local-variable 'company-backends)
+  ;; company-ispell is the plugin to complete words
+  (add-to-list 'company-backends 'company-ispell))
+
+(add-hook 'text-mode-hook 'text-mode-hook-setup)
 
 ;; follow Steve Yegge's suggestion
 (global-set-key (kbd "C-c C-m") 'smex)
@@ -319,6 +350,8 @@ The `car' of each item is the font family, the `cdr' the preferred font size.")
             ;; godef jump
             (local-set-key (kbd "M-.") 'godef-jump)))
 
+;; load pomello script
+(require 'pomello-org)
 
 ;; load google-configuration
 (require 'setup-google)
