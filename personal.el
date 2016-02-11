@@ -44,12 +44,15 @@
 (prelude-require-packages '(company-web company-tern))
 (require 'company-web-html)
 (require 'company-tern)
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
 
 
 (prelude-require-package 'hydra)
 (require 'hydra)
 (require 'setup-hydra)
 
+(prelude-require-package 'nasm-mode)
 (require 'nasm-mode)
 (add-to-list 'auto-mode-alist '("\\.\\(nasm\\|s\\)$" . nasm-mode))
 
