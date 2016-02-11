@@ -8,7 +8,7 @@
   ("g" text-scale-increase "in")
   ("l" text-scale-decrease "out"))
 
-(defhydra hydra-org-clock (:color blue :hint nil)
+(defhydra hydra-org-clock (:exit t :color blue :hint nil)
   "
 Clock   In/out^     ^Edit^   ^Summary     (_?_)
 -----------------------------------------
@@ -26,8 +26,7 @@ Clock   In/out^     ^Edit^   ^Summary     (_?_)
   ("r" org-clock-report)
   ("?" (org-info "Clocking commands")))
 
-(defhydra hydra-window (:color orange
-                        :hint nil)
+(defhydra hydra-window (:exit t :color orange :hint nil)
   "
  Split: _s_:split _H_:oriaontal _V_:vertical
 Delete: _o_nly  _da_ce  _x_window  _db_uffer  _df_rame
@@ -75,7 +74,7 @@ Frames: _f_rame new  _df_ delete
   (insert str)
   (org-try-structure-completion))
 
-(defhydra hydra-org-template (:color blue :hint nil)
+(defhydra hydra-org-template (:exit t :color blue :hint nil)
   "
 _c_enter  _q_uote     _e_macs-lisp    _L_aTeX:
 _l_atex   _E_xample   _p_erl          _i_ndex:
@@ -121,7 +120,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   ("<" self-insert-command "ins")
   ("o" nil "quit"))
 
-(defhydra hydra-project (:color blue :hint nil :idle 0.4)
+(defhydra hydra-project (:exit t :color blue :hint nil :idle 0.4)
         "
                                                                     ╭────────────┐
     Files             Search          Buffer             Do         │ Projectile │
@@ -192,7 +191,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
           (Info-goto-node (format "(%s)" topic))))
     (info topic bname)))
 
-(defhydra hydra-info-to (:hint nil :color teal)
+(defhydra hydra-info-to (:exit t :hint nil :color teal)
   "
 _o_rg e_l_isp _e_macs _h_yperspec"
   ("o" (ora-open-info "org" "*org info*"))
@@ -200,7 +199,7 @@ _o_rg e_l_isp _e_macs _h_yperspec"
   ("e" (ora-open-info "emacs" "*emacs info*"))
   ("h" (ora-open-info "gcl" "*hyperspec*")))
 
-(defhydra hydra-info (:color blue :hint nil :idle 0.4)
+(defhydra hydra-info (:exit t :color blue :hint nil :idle 0.4)
         "
                                                                   ╭────────────┐
     Nav Files             Navi Nodes          Action              │ Info-mode  │
@@ -241,7 +240,7 @@ _o_rg e_l_isp _e_macs _h_yperspec"
 
 (define-key Info-mode-map "." 'hydra-info/body)
 
-(defhydra hydra-org-trello (:color blue :hint nil :idle 0.4)
+(defhydra hydra-org-trello (:exit t :color blue :hint nil :idle 0.4)
         "
                                                                   ╭────────────┐
     Cards               Boards                 Sync               │ Org-Trello │
