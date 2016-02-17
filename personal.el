@@ -238,8 +238,8 @@
 
 (defconst preferred-monospace-fonts
   `(
+    ("Menlo For Powerline" . ,(if (eq system-type 'darwin) 120 100))
     ("Monaco For Powerline" . ,(if (eq system-type 'darwin) 115 100))
-    ("Menlo" . 120)
     ("Hack" . 110)
     ("DejaVu Sans Mono" . 105)
     ("Source Code Pro" . ,(if (eq system-type 'darwin) 130 100))
