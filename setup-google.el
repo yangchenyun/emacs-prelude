@@ -18,7 +18,19 @@
                                   "/site-lisp/emacs-google-config/"
                                   "devtools/editors/emacs/"))
   (require 'google)
-  (require 'google-ycmd))
+  (require 'google-ycmd)
+
+  (require 'borg-mode)
+  (require 'protobuf-mode)
+
+  ;; auto format markdown files
+  (require 'reformat-file)
+  (defun google-mdformat ()
+    (if (string-match "\\.md$" buffer-file-name)
+        (progn
+          (shell-command (concat "/google/data/ro/teams/g3doc/mdformat --in_place " buffer-file-name))
+          (revert-buffer t t)))) ; revert without confirmation
+  (add-hook 'after-save-hook #'google-mdformat))
 
 (provide 'setup-google)
 ;;; setup-google.el ends here
