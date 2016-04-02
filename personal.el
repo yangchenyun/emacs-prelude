@@ -110,6 +110,11 @@
 
 (prelude-require-package 'virtualenvwrapper)
 (require 'virtualenvwrapper)
+(venv-initialize-interactive-shells)
+(venv-initialize-eshell)
+;; Reopen ycmd server (for jedi) upon venv events
+(add-hook 'venv-postactivate-hook 'ycmd-open)
+(add-hook 'venv-postdeactivate-hook 'ycmd-open)
 
 ;; http documentation
 (prelude-require-package 'know-your-http-well)
