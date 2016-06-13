@@ -95,6 +95,14 @@
             (ibuffer-switch-to-saved-filter-groups "default")))
 ;; Suppress prompts
 (setq ibuffer-expert t)
+
+(prelude-require-package 'flyspell-lazy)
+(require 'flyspell-lazy)
+(flyspell-lazy-mode 1)
+
+;; Faster flycheck https://github.com/flycheck/flycheck/issues/179
+(setq flycheck-highlighting-mode 'lines)
+
 (prelude-require-package 'wordsmith-mode)
 (require 'wordsmith-mode)
 ;; AucTeX,
