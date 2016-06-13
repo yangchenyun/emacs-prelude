@@ -32,12 +32,6 @@
 (require 'prelude-xml)
 (require 'prelude-yaml)
 
-(prelude-require-package 'guide-key)
-(require 'guide-key)
-(setq guide-key/guide-key-sequence '("C-h"))
-(setq guide-key/recursive-key-sequence-flag t)
-(setq guide-key/idle-delay 0.5)
-(guide-key-mode 1)  ; Enable guide-key-mode
 (prelude-require-package 'helm-gtags)
 (require 'helm-gtags)
 (add-hook 'c-mode-hook 'helm-gtags-mode)
@@ -49,6 +43,7 @@
 
 (setq helm-gtags-path-style 'root)
 (setq helm-gtags-auto-update t)
+
 (prelude-require-package 'circe)
 (require 'circe)
 ;; reduce noise of JOIN/PART/QUIT
@@ -116,6 +111,14 @@
 
 (prelude-require-package 'wordsmith-mode)
 (require 'wordsmith-mode)
+
+;; (prelude-require-package 'guide-key)
+;; (require 'guide-key)
+;; (setq guide-key/guide-key-sequence '("C-h"))
+;; (setq guide-key/recursive-key-sequence-flag t)
+;; (setq guide-key/idle-delay 0.5)
+;; (guide-key-mode 1)  ; Enable guide-key-mode
+
 ;; AucTeX,
 ;; http://www.stefanom.org/setting-up-a-nice-auctex-environment-on-mac-os-x/
 (prelude-require-package 'auctex)
