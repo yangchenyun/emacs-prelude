@@ -410,6 +410,14 @@ The `car' of each item is the font family, the `cdr' the preferred font size.")
             ;; godef jump
             (local-set-key (kbd "M-.") 'godef-jump)))
 
+(defun goog-dict-open-at-point ()
+  """Lookup word in local google dictionary server."""
+  (interactive)
+  (let ((word (thing-at-point 'word)))
+    (switch-to-buffer-other-window "*w3m*")
+    (w3m-browse-url (format "http://127.0.0.1:3030/define/%s" word))
+    (previous-multiframe-window)))
+
 ;; load pomello script
 (require 'pomello-org)
 
