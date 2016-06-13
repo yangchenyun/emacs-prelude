@@ -1,4 +1,3 @@
-(require 'prelude-erc)
 (require 'prelude-ido) ;; Super charges Emacs completion for C-x C-f and more
 (require 'prelude-helm) ;; Interface for narrowing and search
 ;; (require 'prelude-helm-everywhere) ;; Enable Helm everywhere
@@ -39,6 +38,29 @@
 (setq guide-key/recursive-key-sequence-flag t)
 (setq guide-key/idle-delay 0.5)
 (guide-key-mode 1)  ; Enable guide-key-mode
+(prelude-require-package 'circe)
+(require 'circe)
+;; reduce noise of JOIN/PART/QUIT
+(setq circe-reduce-lurker-spam t)
+
+(setq credentials-file "~/.emacs.d/personal/private.el")
+
+(defun freenode-nickserv-password (_)
+  (with-temp-buffer
+    (insert-file-contents-literally credentials-file)
+    (plist-get (read (buffer-string)) :freenode-password)))
+
+(setq circe-network-options
+      '(("Freenode"
+         :nick "yangchenyun"
+         :channels (:after-auth "#emacs" "#python" "#zeromq", "#polymer", "#geekhack")
+         :nickserv-password freenode-nickserv-password)
+        ("Google IRC" :host "irc.corp.google.com" :port 6697
+         :use-tls t
+         :reduce-lurker-spam t
+         :nick "steveyang"
+         :realname "Chenyun Yang"
+         :channels ("#panic" "#youtube"))))
 
 ;; AucTeX,
 ;; http://www.stefanom.org/setting-up-a-nice-auctex-environment-on-mac-os-x/
