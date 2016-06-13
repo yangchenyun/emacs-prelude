@@ -38,6 +38,17 @@
 (setq guide-key/recursive-key-sequence-flag t)
 (setq guide-key/idle-delay 0.5)
 (guide-key-mode 1)  ; Enable guide-key-mode
+(prelude-require-package 'helm-gtags)
+(require 'helm-gtags)
+(add-hook 'c-mode-hook 'helm-gtags-mode)
+(add-hook 'c-mode-hook
+          (lambda () (fill-keymap evil-normal-state-map
+                  "M-."   'helm-gtags-find-tag-from-here
+                  "M-?"   'helm-gtags-find-files
+                  "M-,"   'helm-gtags-pop-stack)))
+
+(setq helm-gtags-path-style 'root)
+(setq helm-gtags-auto-update t)
 (prelude-require-package 'circe)
 (require 'circe)
 ;; reduce noise of JOIN/PART/QUIT
