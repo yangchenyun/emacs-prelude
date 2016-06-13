@@ -95,6 +95,8 @@
             (ibuffer-switch-to-saved-filter-groups "default")))
 ;; Suppress prompts
 (setq ibuffer-expert t)
+(prelude-require-package 'wordsmith-mode)
+(require 'wordsmith-mode)
 ;; AucTeX,
 ;; http://www.stefanom.org/setting-up-a-nice-auctex-environment-on-mac-os-x/
 (prelude-require-package 'auctex)

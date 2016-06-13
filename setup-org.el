@@ -50,6 +50,8 @@
   "oj" 'org-clock-goto
   "n" 'org-narrow-to-subtree
   "w" 'widen
+  "h" 'wordsmith-highlight-ido
+  "H" 'wordsmith-disable-in-buffer
 
   ;; awesome plan
   "Y" 'org-awesome-plan/total-hours-for-year
@@ -410,7 +412,8 @@ this with to-do items than with projects or headings."
 
 ;; Disable whitespace-mode highlighting
 (add-hook 'org-mode-hook
-          (lambda () (whitespace-mode -1)))
+          (lambda () (whitespace-mode -1))
+          (lambda () (wordsmith-mode)))
 
 (org-babel-do-load-languages
  'org-babel-load-languages
