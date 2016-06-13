@@ -204,7 +204,7 @@
   "b" 'ibuffer
   "m" 'compile
   "/" 'evil-ex-nohighlight
-  "r" 'prelude-recentf-ido-find-file
+  "r" 'crux-recentf-ido-find-file
   "i" 'imenu
   "s" 'helm-occur
   "S" 'eshell

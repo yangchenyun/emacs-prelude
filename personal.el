@@ -1,4 +1,3 @@
-(require 'prelude-erc)
 (require 'prelude-ido) ;; Super charges Emacs completion for C-x C-f and more
 (require 'prelude-helm) ;; Interface for narrowing and search
 ;; (require 'prelude-helm-everywhere) ;; Enable Helm everywhere
@@ -33,12 +32,92 @@
 (require 'prelude-xml)
 (require 'prelude-yaml)
 
-(prelude-require-package 'guide-key)
-(require 'guide-key)
-(setq guide-key/guide-key-sequence '("C-h"))
-(setq guide-key/recursive-key-sequence-flag t)
-(setq guide-key/idle-delay 0.5)
-(guide-key-mode 1)  ; Enable guide-key-mode
+(prelude-require-package 'helm-gtags)
+(require 'helm-gtags)
+(add-hook 'c-mode-hook 'helm-gtags-mode)
+(add-hook 'c-mode-hook
+          (lambda () (fill-keymap evil-normal-state-map
+                  "M-."   'helm-gtags-find-tag-from-here
+                  "M-?"   'helm-gtags-find-files
+                  "M-,"   'helm-gtags-pop-stack)))
+
+(setq helm-gtags-path-style 'root)
+(setq helm-gtags-auto-update t)
+
+(prelude-require-package 'circe)
+(require 'circe)
+;; reduce noise of JOIN/PART/QUIT
+(setq circe-reduce-lurker-spam t)
+
+(setq credentials-file "~/.emacs.d/personal/private.el")
+
+(defun freenode-nickserv-password (_)
+  (with-temp-buffer
+    (insert-file-contents-literally credentials-file)
+    (plist-get (read (buffer-string)) :freenode-password)))
+
+(setq circe-network-options
+      '(("Freenode"
+         :nick "yangchenyun"
+         :channels (:after-auth "#emacs" "#python" "#zeromq", "#polymer", "#geekhack")
+         :nickserv-password freenode-nickserv-password)
+        ("Google IRC" :host "irc.corp.google.com" :port 6697
+         :use-tls t
+         :reduce-lurker-spam t
+         :nick "steveyang"
+         :realname "Chenyun Yang"
+         :channels ("#panic" "#youtube"))))
+
+(setq ibuffer-saved-filter-groups
+      (quote (("default"
+               ("dired" (mode . dired-mode))
+               ("irc" (or
+                       (mode . circe-query-mode)
+                       (mode . circe-server-mode)
+                       (mode . circe-channel-mode)))
+               ("emacs" (or
+                         (name . "^\\*scratch\\*$")
+                         (name . "^\\*Messages\\*$")
+                         (name . "^\\*Warnings\\*$")
+                         (filename . ".emacs.d")))
+               ("writing" (or
+                         (filename . "engl-1A")))
+               ("gnus" (or
+                        (mode . message-mode)
+                        (mode . bbdb-mode)
+                        (mode . mail-mode)
+                        (mode . gnus-group-mode)
+                        (mode . gnus-summary-mode)
+                        (mode . gnus-article-mode)
+                        (name . "^\\.bbdb$")
+                        (name . "^\\.newsrc-dribble")))
+               ("Help" (or (name . "\*Help\*")
+                           (name . "\*Apropos\*")
+                           (name . "\*info\*")))))))
+
+(add-hook 'ibuffer-mode-hook
+          (lambda ()
+            (ibuffer-auto-mode 1)  ;; keeps buffer up-to-date
+            (ibuffer-switch-to-saved-filter-groups "default")))
+;; Suppress prompts
+(setq ibuffer-expert t)
+
+(prelude-require-package 'flyspell-lazy)
+(require 'flyspell-lazy)
+(flyspell-lazy-mode 1)
+
+;; Faster flycheck https://github.com/flycheck/flycheck/issues/179
+(setq flycheck-highlighting-mode 'lines)
+
+(prelude-require-package 'wordsmith-mode)
+(require 'wordsmith-mode)
+
+;; (prelude-require-package 'guide-key)
+;; (require 'guide-key)
+;; (setq guide-key/guide-key-sequence '("C-h"))
+;; (setq guide-key/recursive-key-sequence-flag t)
+;; (setq guide-key/idle-delay 0.5)
+;; (guide-key-mode 1)  ; Enable guide-key-mode
 
 ;; AucTeX,
 ;; http://www.stefanom.org/setting-up-a-nice-auctex-environment-on-mac-os-x/
@@ -130,6 +209,11 @@
 
 (prelude-require-package 'virtualenvwrapper)
 (require 'virtualenvwrapper)
+(venv-initialize-interactive-shells)
+(venv-initialize-eshell)
+;; Reopen ycmd server (for jedi) upon venv events
+(add-hook 'venv-postactivate-hook 'ycmd-open)
+(add-hook 'venv-postdeactivate-hook 'ycmd-open)
 
 ;; http documentation
 (prelude-require-package 'know-your-http-well)
@@ -370,6 +454,14 @@ The `car' of each item is the font family, the `cdr' the preferred font size.")
                      "go generate && go build -v && go test -v && go vet"))
             ;; godef jump
             (local-set-key (kbd "M-.") 'godef-jump)))
+
+(defun goog-dict-open-at-point ()
+  """Lookup word in local google dictionary server."""
+  (interactive)
+  (let ((word (thing-at-point 'word)))
+    (switch-to-buffer-other-window "*w3m*")
+    (w3m-browse-url (format "http://127.0.0.1:3030/define/%s" word))
+    (previous-multiframe-window)))
 
 ;; load pomello script
 (require 'pomello-org)
