@@ -70,6 +70,9 @@
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
 
+(add-hook 'term-mode-hook
+          (lambda () (define-key term-raw-map (kbd "C-y") 'term-paste)))
+
 
 (prelude-require-package 'hydra)
 (require 'hydra)
@@ -100,6 +103,23 @@
 (setq whitespace-global-modes '(not org-mode))
 
 (setq tab-width 4)
+
+;; Typescript integration
+(prelude-require-package 'tss)
+(require 'typescript)
+(require 'tss)
+(setq tss-popup-help-key "C-:")
+(setq tss-jump-to-definition-key "C->")
+(setq tss-implement-definition-key "C-c i")
+(tss-config-default)
+
+;; (add-hook 'typescript-mode-hook
+;;           (lambda ()
+;;             (tide-setup)
+;;             (flycheck-mode +1)
+;;             (setq flycheck-check-syntax-automatically '(save mode-enabled))
+;;             (eldoc-mode +1)
+;;             (company-mode-on)))
 
 ;; ycmd configuration
 (prelude-require-package 'ycmd)
@@ -173,6 +193,7 @@
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
 
 ;; Enable JavaScript completion between <script>...</script> etc.
 (defadvice company-tern (before web-mode-set-up-ac-sources activate)
