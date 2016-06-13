@@ -62,6 +62,39 @@
          :realname "Chenyun Yang"
          :channels ("#panic" "#youtube"))))
 
+(setq ibuffer-saved-filter-groups
+      (quote (("default"
+               ("dired" (mode . dired-mode))
+               ("irc" (or
+                       (mode . circe-query-mode)
+                       (mode . circe-server-mode)
+                       (mode . circe-channel-mode)))
+               ("emacs" (or
+                         (name . "^\\*scratch\\*$")
+                         (name . "^\\*Messages\\*$")
+                         (name . "^\\*Warnings\\*$")
+                         (filename . ".emacs.d")))
+               ("writing" (or
+                         (filename . "engl-1A")))
+               ("gnus" (or
+                        (mode . message-mode)
+                        (mode . bbdb-mode)
+                        (mode . mail-mode)
+                        (mode . gnus-group-mode)
+                        (mode . gnus-summary-mode)
+                        (mode . gnus-article-mode)
+                        (name . "^\\.bbdb$")
+                        (name . "^\\.newsrc-dribble")))
+               ("Help" (or (name . "\*Help\*")
+                           (name . "\*Apropos\*")
+                           (name . "\*info\*")))))))
+
+(add-hook 'ibuffer-mode-hook
+          (lambda ()
+            (ibuffer-auto-mode 1)  ;; keeps buffer up-to-date
+            (ibuffer-switch-to-saved-filter-groups "default")))
+;; Suppress prompts
+(setq ibuffer-expert t)
 ;; AucTeX,
 ;; http://www.stefanom.org/setting-up-a-nice-auctex-environment-on-mac-os-x/
 (prelude-require-package 'auctex)
