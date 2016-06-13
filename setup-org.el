@@ -2,6 +2,10 @@
 ;; Register a org-protocol:// scheme onto the system
 ;; http://jcardente.blogspot.com/2010/09/saving-weblinks-to-org-mode-from-safari.html
 
+(declare-function org-agenda-todo "org-agenda")
+(declare-function org-agenda-switch-to "org-agenda")
+(declare-function org-agenda-get-todos "org-agenda")
+
 ;; org-trello setup
 (prelude-require-package 'org-trello)
 (add-to-list 'auto-mode-alist '("\\.trello$" . org-mode))
@@ -12,14 +16,14 @@
               (org-trello-mode)))))
 
 (defun evil-org-eol-call (fun)
-  "Go to end of line and call provided function"
+  "Go to end of line and call provided FUN."
   (end-of-line)
   (funcall fun)
   (evil-append nil))
 
 (define-key org-mode-map "<"
   (lambda () (interactive)
-     (if (looking-back "^")
+     (if (looking-back "^" nil)
          (hydra-org-template/body)
        (self-insert-command 1))))
 
@@ -102,9 +106,11 @@
       org-agenda-files (list (concat org-dir "/plans.org")
                              (concat org-dir "/work.org")
                              (concat org-dir "/work.trello")
+                             (concat org-dir "/diary.org")
                              (concat org-dir "/meetings.org")
-                             (concat org-dir "/expr/newformat.org")
                              (concat org-dir "/inbox.org"))
+      org-agenda-todo-list-sublevels nil
+      org-agenda-todo-ignore-scheduled t
       org-default-notes-file (expand-file-name "inbox.org" org-directory)
       org-completion-use-ido t        ; Complete with IDO in Org
       org-yank-adjusted-subtrees t    ; Adjust level when yanking entire trees
