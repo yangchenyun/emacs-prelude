@@ -3,29 +3,6 @@
 ;;; Setup of hydra for different mode / plugins.
 
 ;;; Code:
-(defhydra hydra-zoom (global-map "<f2>")
-  "zoom"
-  ("g" text-scale-increase "in")
-  ("l" text-scale-decrease "out"))
-
-(defhydra hydra-org-clock (:exit t :color blue :hint nil)
-  "
-Clock   In/out^     ^Edit^   ^Summary     (_?_)
------------------------------------------
-        _i_n         _e_dit   _g_oto entry
-        _c_ontinue   _q_uit   _d_isplay
-        _o_ut        ^ ^      _r_eport
-      "
-  ("i" org-clock-in)
-  ("o" org-clock-out)
-  ("c" org-clock-in-last)
-  ("e" org-clock-modify-effort-estimate)
-  ("q" org-clock-cancel)
-  ("g" org-clock-goto)
-  ("d" org-clock-display)
-  ("r" org-clock-report)
-  ("?" (org-info "Clocking commands")))
-
 (defhydra hydra-window (:exit t :color orange :hint nil)
   "
  Split: _s_:split _H_:oriaontal _V_:vertical
