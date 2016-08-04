@@ -68,49 +68,12 @@
          :realname "Chenyun Yang"
          :channels ("#panic" "#youtube"))))
 
-(setq ibuffer-saved-filter-groups
-      (quote (("default"
-               ("dired" (mode . dired-mode))
-               ("irc" (or
-                       (mode . circe-query-mode)
-                       (mode . circe-server-mode)
-                       (mode . circe-channel-mode)))
-               ("emacs" (or
-                         (name . "^\\*scratch\\*$")
-                         (name . "^\\*Messages\\*$")
-                         (name . "^\\*Warnings\\*$")
-                         (filename . ".emacs.d")))
-               ("writing" (or
-                         (filename . "engl-1A")))
-               ("gnus" (or
-                        (mode . message-mode)
-                        (mode . bbdb-mode)
-                        (mode . mail-mode)
-                        (mode . gnus-group-mode)
-                        (mode . gnus-summary-mode)
-                        (mode . gnus-article-mode)
-                        (name . "^\\.bbdb$")
-                        (name . "^\\.newsrc-dribble")))
-               ("Help" (or (name . "\*Help\*")
-                           (name . "\*Apropos\*")
-                           (name . "\*info\*")))))))
-
-(add-hook 'ibuffer-mode-hook
-          (lambda ()
-            (ibuffer-auto-mode 1)  ;; keeps buffer up-to-date
-            (ibuffer-switch-to-saved-filter-groups "default")))
-;; Suppress prompts
-(setq ibuffer-expert t)
-
 (prelude-require-package 'flyspell-lazy)
 (require 'flyspell-lazy)
 (flyspell-lazy-mode 1)
 
 ;; Faster flycheck https://github.com/flycheck/flycheck/issues/179
 (setq flycheck-highlighting-mode 'lines)
-
-(prelude-require-package 'wordsmith-mode)
-(require 'wordsmith-mode)
 
 ;; (prelude-require-package 'guide-key)
 ;; (require 'guide-key)
@@ -157,14 +120,6 @@
 (require 'hydra)
 (require 'setup-hydra)
 
-(prelude-require-package 'nasm-mode)
-(require 'nasm-mode)
-(add-to-list 'auto-mode-alist '("\\.\\(nasm\\|s\\)$" . nasm-mode))
-
-;; convert between under_score and CamelCase
-(prelude-require-package 'string-inflection)
-(require 'string-inflection)
-
 (add-to-list 'recentf-exclude "/tmp/buildifier.*")
 
 (prelude-require-package 'prodigy)
@@ -200,31 +155,14 @@
 ;;             (eldoc-mode +1)
 ;;             (company-mode-on)))
 
-;; ycmd configuration
-(prelude-require-package 'ycmd)
-(require 'ycmd)
-(add-hook 'after-init-hook #'global-ycmd-mode)
-(set-variable 'ycmd-server-command
-              (list "python" (expand-file-name "~/.ghq/github.com/Valloric/ycmd/ycmd")))
-
 (prelude-require-package 'virtualenvwrapper)
 (require 'virtualenvwrapper)
 (venv-initialize-interactive-shells)
 (venv-initialize-eshell)
+;; TODO: confirm whether we still need it with `pvenv'
 ;; Reopen ycmd server (for jedi) upon venv events
 (add-hook 'venv-postactivate-hook 'ycmd-open)
 (add-hook 'venv-postdeactivate-hook 'ycmd-open)
-
-;; http documentation
-(prelude-require-package 'know-your-http-well)
-
-(prelude-require-package 'ido-vertical-mode)
-(ido-vertical-mode 1)
-(add-hook
- 'ido-setup-hook
- (lambda ()
-   (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
-   (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)))
 
 (setq projectile-switch-project-action 'projectile-dired)
 (prelude-require-package 'ag)
@@ -243,8 +181,6 @@
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
 
-(setq find-function-C-source-directory "~/vendor/emacs/src")
-
 (sp-use-smartparens-bindings)
 
 ;; as rgrep.el doesn't working in fish-shell
@@ -258,12 +194,6 @@
   (rainbow-delimiters-mode +1))
 (add-hook 'extempore-mode-hook 'extempore-coding-defaults)
 (setq user-extempore-directory "/usr/local/Cellar/extempore/0.53/")
-
-(require 'powerline)
-(powerline-evil-theme)
-
-(if (version< "24.4.1" emacs-version)
-    (global-prettify-symbols-mode))
 
 (prelude-require-package 'skewer-mode)
 (skewer-setup)
@@ -331,7 +261,6 @@
                                (scroll-up 1))))
 
 ; be quiet
-(setq ring-bell-function 'ignore)
 (scroll-bar-mode -1)
 
 (when (eq system-type 'darwin)
@@ -394,25 +323,6 @@ The `car' of each item is the font family, the `cdr' the preferred font size.")
 
 (choose-best-fonts)
 
-(prelude-require-package 'solarized-theme)
-(defun pick-color-theme (frame)
-  (if (window-system frame)
-      (load-theme 'solarized-dark t)
-    (load-theme 'solarized-light t)))
-
-(add-hook 'after-make-frame-functions
-          (lambda (frame)
-            (select-frame frame)
-            (pick-color-theme frame)))
-
-;; for direct loading
-(pick-color-theme nil)
-
-(setq themes-options (list
-       'solarized-dark
-       'solarized-light
-       'zenburn
-))
 
 ;; make the modeline high contrast
 (setq solarized-high-contrast-mode-line nil)
